@@ -1,4 +1,4 @@
 module.exports = {
     publicPath: './',
-    outputDir: './dist'
+    outputDir: 'D:/Code-Project/TypeScript/eide/res/html/builder_options'
 }

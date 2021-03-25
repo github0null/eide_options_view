@@ -6,7 +6,8 @@
                 <div class="col-lg-12">
                     <!-- Tabs with icons -->
                     <div class="mb-4">
-                        <small class="text-uppercase font-weight-bold">Builder Options</small>
+                        <big class="text-uppercase font-weight-bold">{{title}}</big>
+                        <base-button type="success" class="float-right" @click="onSave">Save All</base-button>
                     </div>
                     <tabs fill class="flex-column flex-md-row">
                         <card shadow>
@@ -17,7 +18,9 @@
 
                                 <fieldset>
                                   <div class="row mb-3 mt-4">
-                                    <legend class="col-2">Prebuild Task</legend>
+                                    <legend class="col-2"
+                                        data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                        title="Run some commands before build">Prebuild Task</legend>
                                     <base-button class="col-1" size="sm" type="success" @click="add_prebuild_task">Add</base-button>
                                   </div>
                                   <div class="container">
@@ -25,28 +28,38 @@
                                       <li class="list-group-item" v-for="(item, index) in task.before" :key="index">
                                         <form class="pt-4 pb-4">
                                           <div class="form-group row">
-                                            <label class="col-2 col-form-label">Task Name</label>
+                                            <label class="col-2 col-form-label"
+                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                title="A readable name for display">Task Name</label>
                                             <div class="col-10">
                                               <base-input v-model="item.name"></base-input>
                                             </div>
                                           </div>
                                           <div class="form-group row">
-                                            <label class="col-2 col-form-label">Command</label>
+                                            <label class="col-2 col-form-label"
+                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                title="Command line">Command</label>
                                             <div class="col-10">
                                               <base-input v-model="item.command"></base-input>
                                             </div>
                                           </div>
                                           <fieldset class="form-group row">
                                             <legend class="col-form-label col-2 float-left pt-0">Options</legend>
-                                            <div class="col-10">
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.disable">Disable</base-checkbox>
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.abortAfterFailed">Abort If Failed</base-checkbox>
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.stopBuildAfterFailed">Stop Build If Failed</base-checkbox>
+                                            <div class="col-3">
+                                              <base-checkbox class="mt-3 mb-3" v-model="item.disable" 
+                                                data-toggle="tooltip" :data-placement="location.tooltip.options"
+                                                title="Disable this command">Disable</base-checkbox>
+                                              <base-checkbox class="mt-3 mb-3" v-model="item.abortAfterFailed" 
+                                                data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                title="Whether to skip subsequent commands if this command is failed">Abort If Failed</base-checkbox>
+                                              <base-checkbox class="mt-3 mb-3" v-model="item.stopBuildAfterFailed"
+                                                data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                title="Whether to stop building directly when this command is failed">Stop Build If Failed</base-checkbox>
                                             </div>
                                           </fieldset>
                                           <div class="form-group">
                                             <div class="col-12">
-                                              <base-button class="float-right" size="sm" type="danger" @click="delete_prebuild_task(item)">Delete</base-button>
+                                              <base-button class="float-right" size="sm" type="danger" @click="delete_prebuild_task(item)"> Delete</base-button>
                                             </div>
                                           </div>
                                         </form>
@@ -57,7 +70,9 @@
 
                                 <fieldset class="mt-4">
                                   <div class="row mb-3 mt-4">
-                                    <legend class="col-2">Post-build Task</legend>
+                                    <legend class="col-2"
+                                        data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                        title="Run some commands after build">Post-build Task</legend>
                                     <base-button class="col-1" size="sm" type="success" @click="add_postbuild_task">Add</base-button>
                                   </div>
                                   <div class="container">
@@ -65,27 +80,35 @@
                                       <li class="list-group-item" v-for="(item, index) in task.after" :key="index">
                                         <form class="pt-4 pb-4">
                                           <div class="form-group row">
-                                            <label class="col-2 col-form-label">Task Name</label>
+                                            <label class="col-2 col-form-label"
+                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                title="A readable name for display">Task Name</label>
                                             <div class="col-10">
                                               <base-input v-model="item.name"></base-input>
                                             </div>
                                           </div>
                                           <div class="form-group row">
-                                            <label class="col-2 col-form-label">Command</label>
+                                            <label class="col-2 col-form-label"
+                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                title="Command line">Command</label>
                                             <div class="col-10">
                                               <base-input v-model="item.command"></base-input>
                                             </div>
                                           </div>
                                           <fieldset class="form-group row">
                                             <legend class="col-form-label col-2 float-left pt-0">Options</legend>
-                                            <div class="col-10">
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.disable">Disable</base-checkbox>
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.abortAfterFailed">Abort If Failed</base-checkbox>
+                                            <div class="col-3">
+                                              <base-checkbox class="mt-3 mb-3" v-model="item.disable"
+                                                data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                title="Disable this command">Disable</base-checkbox>
+                                              <base-checkbox class="mt-3 mb-3" v-model="item.abortAfterFailed"
+                                                data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                title="Whether to skip subsequent commands if this command is failed">Abort If Failed</base-checkbox>
                                             </div>
                                           </fieldset>
                                           <div class="form-group">
                                             <div class="col-12">
-                                              <base-button class="float-right" size="sm" type="danger" @click="delete_postbuild_task(item)">Delete</base-button>
+                                              <base-button class="float-right" size="sm" type="danger" @click="delete_postbuild_task(item)"> Delete</base-button>
                                             </div>
                                           </div>
                                         </form>
@@ -105,33 +128,50 @@
                                         <!--dynamic element-->
                                         <div v-for="(item, index) in global.option_list" :key="index">
                                             <div v-if="item.type == 'bool'">
-                                                <base-checkbox class="mt-3 mb-3" v-model="item.checked">
+                                                <base-checkbox 
+                                                    class="mt-3 mb-3 col-4" 
+                                                    v-model="item.value"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                    :title="item.description||''"
+                                                >
                                                     {{item.name}}
                                                 </base-checkbox>
                                             </div>
-                                            <div v-else-if="item.type == 'enum'">
-                                                <base-dropdown class="mt-3 mb-3">
-                                                    <a class="mr-2 align-middle">{{ item.name }}</a>
-                                                    <base-button outline
-                                                        size="sm" type="default" 
-                                                        class="dropdown-toggle align-middle"
-                                                        data-toggle="dropdown"
-                                                    >{{ item.value }}</base-button>
-                                                    <div class="dropdown-menu">
-                                                        <div v-for="enum_item in item.enums" :key="enum_item">
-                                                            <a class="dropdown-item" @click="item.value = enum_item">
-                                                                {{enum_item}}
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </base-dropdown>
+                                            <div class="form-inline" v-else-if="item.type == 'enum'">
+                                                <select class="col-2 custom-select custom-select-sm" v-model="item.value">
+                                                    <option v-for="enum_item in item.enums" :key="enum_item">{{enum_item}}</option>
+                                                </select>
+                                                <a 
+                                                    class="col-3 col-form-label"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                    :title="item.description||''"
+                                                >{{ item.name }}</a>
                                             </div>
-                                            <div v-else-if="item.type == 'input'">
-                                              <div class="mt-2 mb-2 form-group">
-                                                <a>{{item.name}}</a>
-                                                <base-input class="mt-2" :placeholder="item.placeHolder" v-model="item.value">
+                                            <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
+                                                <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                                    :title="item.description||''">{{item.name}}</a>
+                                                <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
+                                                    v-model="item.value">
                                                 </base-input>
-                                              </div>
+                                            </div>
+                                            <div class="mb-2" v-else-if="item.type == 'array'">
+                                                <div class="form-inline mb-2 mt-2">
+                                                    <a class="mr-4" data-toggle="tooltip" 
+                                                        :data-placement="location.tooltip.options" 
+                                                        :title="item.description||''"
+                                                    >{{ item.name }}</a>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="item.value.push('')">Add</base-button>
+                                                </div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
+                                                        <div class="form-inline">
+                                                            <base-input class="input-group-sm mr-4" v-model="ele.value"/>
+                                                            <base-button class="" size="sm" type="danger" 
+                                                                @click="item.value.splice(ele_index, 1)"
+                                                            >Delete</base-button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -149,29 +189,50 @@
                                         <!--dynamic element-->
                                         <div v-for="(item, index) in cpp.option_list" :key="index">
                                             <div v-if="item.type == 'bool'">
-                                                <base-checkbox class="mt-3 mb-3" v-model="item.checked">
+                                                <base-checkbox 
+                                                    class="mt-3 mb-3 col-4" 
+                                                    v-model="item.value"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                    :title="item.description||''"
+                                                >
                                                     {{item.name}}
                                                 </base-checkbox>
                                             </div>
-                                            <div v-else-if="item.type == 'enum'">
-                                                <base-dropdown class="mt-3 mb-3">
-                                                    <label class="mr-2 align-middle">{{ item.name }}</label>
-                                                    <base-button outline
-                                                        size="sm" type="default" 
-                                                        class="dropdown-toggle align-middle"
-                                                        data-toggle="dropdown"
-                                                    >{{ item.value }}</base-button>
-                                                    <div class="dropdown-menu" v-for="enum_item in item.enums" :key="enum_item">
-                                                      <a class="dropdown-item" @click="item.value = enum_item">{{enum_item}}</a>
-                                                    </div>
-                                                </base-dropdown>
+                                            <div class="form-inline" v-else-if="item.type == 'enum'">
+                                                <select class="col-2 custom-select custom-select-sm" v-model="item.value">
+                                                    <option v-for="enum_item in item.enums" :key="enum_item">{{enum_item}}</option>
+                                                </select>
+                                                <a 
+                                                    class="col-3 col-form-label"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                    :title="item.description||''"
+                                                >{{ item.name }}</a>
                                             </div>
-                                            <div v-else-if="item.type == 'input'">
-                                              <div class="mt-2 mb-2 form-group">
-                                                <a>{{item.name}}</a>
-                                                <base-input class="mt-2" :placeholder="item.placeHolder" :value="item.value">
+                                            <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
+                                                <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                                    :title="item.description||''">{{item.name}}</a>
+                                                <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
+                                                    v-model="item.value">
                                                 </base-input>
-                                              </div>
+                                            </div>
+                                            <div class="mb-2" v-else-if="item.type == 'array'">
+                                                <div class="form-inline mb-2 mt-2">
+                                                    <a class="mr-4" data-toggle="tooltip" 
+                                                        :data-placement="location.tooltip.options" 
+                                                        :title="item.description||''"
+                                                    >{{ item.name }}</a>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="item.value.push('')">Add</base-button>
+                                                </div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
+                                                        <div class="form-inline">
+                                                            <base-input class="input-group-sm mr-4" v-model="ele.value"/>
+                                                            <base-button class="" size="sm" type="danger" 
+                                                                @click="item.value.splice(ele_index, 1)"
+                                                            >Delete</base-button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -188,33 +249,50 @@
                                         <!--dynamic element-->
                                         <div v-for="(item, index) in asm.option_list" :key="index">
                                             <div v-if="item.type == 'bool'">
-                                                <base-checkbox class="mt-3 mb-3" v-model="item.checked">
+                                                <base-checkbox 
+                                                    class="mt-3 mb-3 col-4" 
+                                                    v-model="item.value"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                    :title="item.description||''"
+                                                >
                                                     {{item.name}}
                                                 </base-checkbox>
                                             </div>
-                                            <div v-else-if="item.type == 'enum'">
-                                                <base-dropdown class="mt-3 mb-3">
-                                                    <a class="mr-2 align-middle">{{ item.name }}</a>
-                                                    <base-button outline
-                                                        size="sm" type="default" 
-                                                        class="dropdown-toggle align-middle"
-                                                        data-toggle="dropdown"
-                                                    >{{ item.value }}</base-button>
-                                                    <div class="dropdown-menu">
-                                                        <div v-for="enum_item in item.enums" :key="enum_item">
-                                                            <a class="dropdown-item" @click="item.value = enum_item">
-                                                                {{enum_item}}
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </base-dropdown>
+                                            <div class="form-inline" v-else-if="item.type == 'enum'">
+                                                <select class="col-2 custom-select custom-select-sm" v-model="item.value">
+                                                    <option v-for="enum_item in item.enums" :key="enum_item">{{enum_item}}</option>
+                                                </select>
+                                                <a 
+                                                    class="col-3 col-form-label"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                    :title="item.description||''"
+                                                >{{ item.name }}</a>
                                             </div>
-                                            <div v-else-if="item.type == 'input'">
-                                              <div class="mt-2 mb-2 form-group">
-                                                <a>{{item.name}}</a>
-                                                <base-input class="mt-2" :placeholder="item.placeHolder" :value="item.value">
+                                            <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
+                                                <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                                    :title="item.description||''">{{item.name}}</a>
+                                                <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
+                                                    v-model="item.value">
                                                 </base-input>
-                                              </div>
+                                            </div>
+                                            <div class="mb-2" v-else-if="item.type == 'array'">
+                                                <div class="form-inline mb-2 mt-2">
+                                                    <a class="mr-4" data-toggle="tooltip" 
+                                                        :data-placement="location.tooltip.options" 
+                                                        :title="item.description||''"
+                                                    >{{ item.name }}</a>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="item.value.push('')">Add</base-button>
+                                                </div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
+                                                        <div class="form-inline">
+                                                            <base-input class="input-group-sm mr-4" v-model="ele.value"/>
+                                                            <base-button class="" size="sm" type="danger" 
+                                                                @click="item.value.splice(ele_index, 1)"
+                                                            >Delete</base-button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -231,33 +309,52 @@
                                         <!--dynamic element-->
                                         <div v-for="(item, index) in linker.option_list" :key="index">
                                             <div v-if="item.type == 'bool'">
-                                                <base-checkbox class="mt-3 mb-3" v-model="item.checked">
+                                                <base-checkbox 
+                                                    class="mt-3 mb-3 col-4" 
+                                                    v-model="item.value"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                    :title="item.description||''"
+                                                >
                                                     {{item.name}}
                                                 </base-checkbox>
                                             </div>
-                                            <div v-else-if="item.type == 'enum'">
-                                                <base-dropdown class="mt-3 mb-3">
-                                                    <a class="mr-2 align-middle">{{ item.name }}</a>
-                                                    <base-button outline
-                                                        size="sm" type="default" 
-                                                        class="dropdown-toggle align-middle"
-                                                        data-toggle="dropdown"
-                                                    >{{ item.value }}</base-button>
-                                                    <div class="dropdown-menu">
-                                                        <div v-for="enum_item in item.enums" :key="enum_item">
-                                                            <a class="dropdown-item" @click="item.value = enum_item">
-                                                                {{enum_item}}
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </base-dropdown>
+                                            <div class="form-inline" v-else-if="item.type == 'enum'">
+                                                <select class="col-2 custom-select custom-select-sm" v-model="item.value">
+                                                    <option v-for="enum_item in item.enums" :key="enum_item">{{enum_item}}</option>
+                                                </select>
+                                                <a 
+                                                    class="col-3 col-form-label"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                    :title="item.description||''"
+                                                >{{ item.name }}</a>
                                             </div>
-                                            <div v-else-if="item.type == 'input'">
-                                              <div class="mt-2 mb-2 form-group">
-                                                <a>{{item.name}}</a>
-                                                <base-input class="mt-2" :placeholder="item.placeHolder" :value="item.value">
+                                            <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
+                                                <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                                    :title="item.description||''">{{item.name}}</a>
+                                                <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
+                                                    v-model="item.value">
                                                 </base-input>
-                                              </div>
+                                            </div>
+                                            <div class="mb-2" v-else-if="item.type == 'array'">
+                                                <div class="form-inline mb-2 mt-2">
+                                                    <a class="mr-4" data-toggle="tooltip" 
+                                                        :data-placement="location.tooltip.options" 
+                                                        :title="item.description||''"
+                                                    >{{ item.name }}</a>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
+                                                </div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
+                                                        <div class="form-inline">
+                                                            <div class="input-group input-group-sm w-50">
+                                                                <input type="text" class="form-control" v-model="ele.value">
+                                                            </div>
+                                                            <base-button class="ml-4" size="sm" type="danger" 
+                                                                @click="delete_from_list(item.value, ele.value)"
+                                                            >Delete</base-button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -266,8 +363,44 @@
                         </card>
                     </tabs>
                 </div>
-                <div class="mt-3 col-lg-12">
-                    <base-button type="success" class="float-right" @click="onSave">Save All</base-button>
+                <div>
+                    <modal :show.sync="dialog.visible"
+                        :gradient="dialog.theme"
+                        modal-classes="modal-danger modal-dialog-centered">
+
+                        <h5 slot="header" class="modal-title" id="modal-title-notification">{{dialog.title}}</h5>
+
+                        <div class="py-3 text-center">
+
+                            <div v-if="dialog.theme=='success'">
+                                <i class="bi-check2" style="font-size: 4rem;"></i>
+                                <!-- <h4 class="heading text-uppercase">success</h4> -->
+                            </div>
+                            <div v-else-if="dialog.theme=='danger'">
+                                <i class="bi-x" style="font-size: 4rem;"></i>
+                                <!-- <h4 class="heading text-uppercase">failed</h4> -->
+                            </div>
+                            <div v-else>
+                                <i class="ni ni-bell-55 ni-3x"></i>
+                                <!-- <h4 class="heading text-uppercase">notification</h4> -->
+                            </div>
+
+                            <p>{{dialog.msg}}</p>
+
+                        </div>
+
+                        <template slot="footer">
+                            <base-button class="text-uppercase" 
+                                type="white"
+                                @click="dialog.visible = false"
+                            >Ok</base-button>
+                            <base-button type="link"
+                                text-color="white"
+                                class="ml-auto text-uppercase"
+                                @click="dialog.visible = false"
+                            >Close</base-button>
+                        </template>
+                    </modal>
                 </div>
             </div>
         </div>
@@ -290,12 +423,16 @@ th {
 </style>
 
 <script>
+// components
 import Tabs from "@/components/Tabs/Tabs.vue";
 import TabPane from "@/components/Tabs/TabPane.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseInput from "@/components/BaseInput.vue";
-import BaseDropdown from "@/components/BaseDropdown.vue";
 import Card from "@/components/Card.vue";
+import Modal from "@/components/Modal.vue";
+
+// css
+import "bootstrap-icons/font/bootstrap-icons.css"
 
 let _instance;
 
@@ -307,79 +444,32 @@ export default {
         TabPane,
         BaseButton,
         BaseInput,
-        BaseDropdown,
         Card,
+        Modal
     },
 
     // data
     data() {
         return {
+            title: 'Builder Options',
+            dialog: {
+                title: '',
+                msg: '',
+                visible: false,
+                theme: 'success'
+            },
+            location: {
+                tooltip: {
+                    title: 'top',
+                    options: 'right'
+                }
+            },
             task: {
-                before: [
-                    {
-                        name: "task_before_1",
-                        disable: false,
-                        abortAfterFailed: false,
-                        stopBuildAfterFailed: false,
-                        command:
-                            "command hjhajskdhajsdh jkahs lkh ashjjkhdsa line",
-                    },
-                ],
-                after: [
-                    {
-                        name: "task_after_1",
-                        disable: false,
-                        abortAfterFailed: false,
-                        command: "command line",
-                    },
-                    {
-                        name: "task_after_2",
-                        disable: true,
-                        abortAfterFailed: true,
-                        command: "command line",
-                    },
-                ],
+                before: [],
+                after: [],
             },
             global: {
-                option_list: [
-                    {
-                        name: "Test 1",
-                        type: "bool",
-                        checked: false,
-                    },
-                    {
-                        name: "Test 212123131",
-                        type: "bool",
-                        checked: true,
-                    },
-                    {
-                        name: "Test 3asdasdsadasd",
-                        type: "bool",
-                        checked: false,
-                    },
-                    {
-                        name: "Test 3",
-                        type: "enum",
-                        value: "Default",
-                        enums: ["Default", "Value_1", "Value_2", "Value_3"],
-                    },
-                    {
-                        name: "Testhsjdfhkjasf 4",
-                        type: "bool",
-                        checked: false,
-                    },
-                    {
-                        name: "Test 6",
-                        type: "bool",
-                        checked: false,
-                    },
-                    {
-                        name: "Test 6",
-                        type: "input",
-                        placeHolder: "input something",
-                        value: "hello",
-                    },
-                ],
+                option_list: [],
             },
             cpp: {
                 option_list: [],
@@ -395,7 +485,17 @@ export default {
 
     // mount object
     mounted() {
+
+        // save instance
         _instance = this
+
+        // event
+        this.$on('save-status', (status) => {
+            this.dialog.title = status.title || this.title;
+            this.dialog.msg = status.msg
+            this.dialog.theme = status.success ? 'success' : 'danger'
+            this.dialog.visible = true
+        })
     },
 
     // global methods
@@ -406,7 +506,7 @@ export default {
         },
 
         // event
-        onSave: function() {
+        onSave: function () {
             _instance.$emit('save-all')
         },
 
@@ -421,6 +521,7 @@ export default {
             });
         },
         delete_prebuild_task: function (item) {
+
             const index = this.task.before.findIndex((ele) => {
                 return ele.name == item.name && ele.command == item.command;
             });
@@ -438,6 +539,7 @@ export default {
             });
         },
         delete_postbuild_task: function (item) {
+
             const index = this.task.after.findIndex((ele) => {
                 return ele.name == item.name && ele.command == item.command;
             });
@@ -446,6 +548,21 @@ export default {
                 this.task.after.splice(index, 1);
             }
         },
+
+        add_to_list: function (list, value) {
+            list.push({ value: value })
+        },
+
+        delete_from_list: function (list, value) {
+
+            const index = list.findIndex((ele) => {
+                return ele.value == value;
+            });
+
+            if (index != -1) {
+                list.splice(index, 1);
+            }
+        }
     },
 };
 </script>
