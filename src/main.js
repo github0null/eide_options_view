@@ -80,7 +80,7 @@ function saveAll() {
                     oldData[data.name] = data.value || false
                     break;
                 default:
-                    if (data.value.trim() == '') {
+                    if (typeof data.value == 'string' && data.value.trim() == '') {
                         delete oldData[data.name];
                     } else {
                         oldData[data.name] = data.value
