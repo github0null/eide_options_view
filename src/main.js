@@ -148,6 +148,8 @@ function setFieldValue(field_info, field, data) {
         case 'boolean':
             field.type = 'bool'
             break;
+        case 'object': // not support 'object'
+            return false;
         default: // string
             if (field_info['enum']) {
                 field.type = 'enum'
@@ -191,6 +193,8 @@ function setFieldValue(field_info, field, data) {
             field.value = ''
         }
     }
+
+    return true;
 }
 
 function initAll(model, data) {
@@ -216,8 +220,9 @@ function initAll(model, data) {
         for (const name in props_group) {
             const field_info = getFieldInfo(model, props_group[name])
             const new_field = { name: name }
-            setFieldValue(field_info, new_field, data_group[name])
-            vueObj.push(new_field)
+            if (setFieldValue(field_info, new_field, data_group[name])) {
+                vueObj.push(new_field)
+            }
         }
     }
 
