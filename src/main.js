@@ -80,7 +80,11 @@ function saveAll() {
                     oldData[data.name] = data.value || false
                     break;
                 default:
-                    oldData[data.name] = data.value || ''
+                    if (data.value.trim() == '') {
+                        delete oldData[data.name];
+                    } else {
+                        oldData[data.name] = data.value
+                    }
                     break;
             }
         }
@@ -180,7 +184,7 @@ function setFieldValue(field_info, field, data) {
         if (field.type == 'bool') {
             field.value = false
         } else if (field.type == 'enum') {
-            field.value = field_info.default
+            field.value = field_info.default || ''
         } else if (field.type == 'array') {
             field.value = []
         } else {
