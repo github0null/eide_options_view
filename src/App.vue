@@ -126,7 +126,7 @@
                                 <div class="container">
                                     <div class="col">
                                         <!--dynamic element-->
-                                        <div v-for="(item, index) in global.option_list" :key="index">
+                                        <div v-for="(item, index) in global" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
                                                     class="mt-3 mb-3 col-4" 
@@ -187,7 +187,7 @@
                                 <div class="container">
                                     <div class="col">
                                         <!--dynamic element-->
-                                        <div v-for="(item, index) in cpp.option_list" :key="index">
+                                        <div v-for="(item, index) in cpp" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
                                                     class="mt-3 mb-3 col-4" 
@@ -247,7 +247,7 @@
                                 <div class="container">
                                     <div class="col">
                                         <!--dynamic element-->
-                                        <div v-for="(item, index) in asm.option_list" :key="index">
+                                        <div v-for="(item, index) in asm" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
                                                     class="mt-3 mb-3 col-4" 
@@ -307,7 +307,7 @@
                                 <div class="container">
                                     <div class="col">
                                         <!--dynamic element-->
-                                        <div v-for="(item, index) in linker.option_list" :key="index">
+                                        <div v-for="(item, index) in linker" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
                                                     class="mt-3 mb-3 col-4" 
@@ -468,18 +468,10 @@ export default {
                 before: [],
                 after: [],
             },
-            global: {
-                option_list: [],
-            },
-            cpp: {
-                option_list: [],
-            },
-            asm: {
-                option_list: [],
-            },
-            linker: {
-                option_list: [],
-            },
+            global: [],
+            cpp: [],
+            asm: [],
+            linker: [],
         };
     },
 

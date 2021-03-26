@@ -48,6 +48,8 @@ window.addEventListener('message', event => {
 // ====== functions ======
 
 function saveAll() {
+    
+    console.log('[builder options view] start post data ...')
 
     // update tasks
     const task_name_map = {
@@ -68,14 +70,17 @@ function saveAll() {
     }
     for (const gName in opt_name_map) {
         const vueData = vueInstance[gName]
-        const oldData = data_obj[gName]
+        const oldData = data_obj[opt_name_map[gName]]
         for (const data of vueData) {
             switch (data.type) {
                 case 'array':
                     oldData[data.name] = data.value.map((ele) => { return ele.value })
                     break;
+                case 'bool':
+                    oldData[data.name] = data.value || false
+                    break;
                 default:
-                    oldData[data.name] = data.value
+                    oldData[data.name] = data.value || ''
                     break;
             }
         }
@@ -83,6 +88,8 @@ function saveAll() {
 
     // post data
     vscode.postMessage(data_obj)
+    
+    console.log('[builder options view] post data done !')
 }
 
 function getObjectByPath(root, path) {
@@ -181,6 +188,8 @@ function setFieldValue(field_info, field, data) {
 }
 
 function initAll(model, data) {
+    
+    console.log('[builder options view] start init page ...')
 
     const props = model.properties;
 
@@ -202,7 +211,7 @@ function initAll(model, data) {
             const field_info = getFieldInfo(model, props_group[name])
             const new_field = { name: name }
             setFieldValue(field_info, new_field, data_group[name])
-            vueObj.option_list.push(new_field)
+            vueObj.push(new_field)
         }
     }
 
@@ -223,4 +232,6 @@ function initAll(model, data) {
             }
         }
     }
+
+    console.log('[builder options view] Init data done !')
 }
