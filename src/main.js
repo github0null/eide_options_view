@@ -77,11 +77,15 @@ function saveAll() {
                     oldData[data.name] = data.value.map((ele) => { return ele.value })
                     break;
                 case 'bool':
-                    oldData[data.name] = data.value || false
+                    if (data.value) {
+                        oldData[data.name] = data.value
+                    } else {
+                        delete oldData[data.name] // delete 'false' for boolean
+                    }
                     break;
                 default:
                     if (typeof data.value == 'string' && data.value.trim() == '') {
-                        delete oldData[data.name];
+                        delete oldData[data.name] // delete empty fields
                     } else {
                         oldData[data.name] = data.value
                     }
