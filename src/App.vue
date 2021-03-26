@@ -431,16 +431,25 @@
 </template>
 
 <style>
+@font-face {
+    font-family: Consolas;
+    src: url("assets/fonts/consola.ttf");
+}
+
 legend {
     font-size: 16px !important;
 }
 
-th {
-    white-space: nowrap;
-}
-
 .form-control {
     color: #52577f !important;
+}
+
+base-input {
+    font-family: Consolas !important;
+}
+
+input {
+    font-family: Consolas !important;
 }
 </style>
 
