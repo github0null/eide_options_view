@@ -20,8 +20,9 @@ let data_obj
 // eslint-disable-next-line no-undef
 const vscode = acquireVsCodeApi();
 
-// on save btn clicked
+// receive event
 vueInstance.$on('save-all', () => saveAll())
+vueInstance.$on('open-config', () => vscode.postMessage('open-config'))
 
 // receive vscode event
 window.addEventListener('message', event => {

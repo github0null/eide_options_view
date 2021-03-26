@@ -8,13 +8,14 @@
                     <div class="mb-4">
                         <big class="text-uppercase font-weight-bold">{{title}}</big>
                         <base-button type="success" class="float-right" @click="onSave">Save All</base-button>
+                        <base-button type="primary" class="float-right mr-4" @click="onOpenConfig">Open Config</base-button>
                     </div>
                     <tabs fill class="flex-column flex-md-row">
                         <card shadow>
                             <tab-pane key="tab1">
-                                <template slot="title">
+                                <span slot="title">
                                     <i class="ni ni-user-run mr-2"></i>User Task
-                                </template>
+                                </span>
 
                                 <div class="p-4">
                                     <fieldset>
@@ -48,7 +49,7 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <legend class="col-form-label col-2 float-left pt-0">Options</legend>
-                                                    <div class="col-3">
+                                                    <div class="col-6">
                                                         <base-checkbox class="mt-1 mb-3" v-model="item.disable" 
                                                             data-toggle="tooltip" :data-placement="location.tooltip.options"
                                                             title="Disable this command">Disable</base-checkbox>
@@ -103,7 +104,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <legend class="col-form-label col-2 float-left pt-0">Options</legend>
-                                                            <div class="col-3">
+                                                            <div class="col-6">
                                                                 <base-checkbox class="mt-1 mb-3" v-model="item.disable"
                                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                                     title="Disable this command">Disable</base-checkbox>
@@ -127,9 +128,9 @@
                             </tab-pane>
 
                             <tab-pane key="tab2">
-                                <template slot="title">
+                                <span slot="title">
                                     <i class="ni ni-world mr-2"></i>Global
-                                </template>
+                                </span>
 
                                 <div class="container">
                                     <div class="col">
@@ -191,10 +192,10 @@
                             </tab-pane>
 
                             <tab-pane key="tab3">
-                                <template slot="title">
+                                <span slot="title">
                                     <i class="ni ni-settings mr-2"></i>C/Cpp
                                     Compiler
-                                </template>
+                                </span>
 
                                 <div class="container">
                                     <div class="col">
@@ -256,9 +257,9 @@
                             </tab-pane>
 
                             <tab-pane key="tab4">
-                                <template slot="title">
+                                <span slot="title">
                                     <i class="ni ni-settings mr-2"></i>Assembler
-                                </template>
+                                </span>
 
                                 <div class="container">
                                     <div class="col">
@@ -320,9 +321,9 @@
                             </tab-pane>
 
                             <tab-pane key="tab5">
-                                <template slot="title">
+                                <span slot="title">
                                     <i class="ni ni-settings mr-2"></i>Linker
-                                </template>
+                                </span>
 
                                 <div class="container">
                                     <div class="col">
@@ -437,18 +438,20 @@
 }
 
 legend {
-    font-size: 16px !important;
-}
-
-.form-control {
-    color: #52577f !important;
+    font-size: 1rem !important;
 }
 
 base-input {
+    color: #2c3343 !important; /* set font color for input */
     font-family: Consolas !important;
 }
 
+a:focus, input:focus, select:focus {
+    outline: none !important; /* remove outline when get focus */
+}
+
 input {
+    color: #2c3343 !important; /* set font color for input */
     font-family: Consolas !important;
 }
 </style>
@@ -531,6 +534,10 @@ export default {
         // event
         onSave: function () {
             _instance.$emit('save-all')
+        },
+
+        onOpenConfig: function () {
+            _instance.$emit('open-config')
         },
 
         // operations
