@@ -48,7 +48,7 @@ window.addEventListener('message', event => {
 // ====== functions ======
 
 function saveAll() {
-    
+
     console.log('[builder options view] start post data ...')
 
     // update tasks
@@ -88,7 +88,7 @@ function saveAll() {
 
     // post data
     vscode.postMessage(data_obj)
-    
+
     console.log('[builder options view] post data done !')
 }
 
@@ -181,6 +181,8 @@ function setFieldValue(field_info, field, data) {
             field.value = false
         } else if (field.type == 'enum') {
             field.value = field_info.default
+        } else if (field.type == 'array') {
+            field.value = []
         } else {
             field.value = ''
         }
@@ -188,7 +190,7 @@ function setFieldValue(field_info, field, data) {
 }
 
 function initAll(model, data) {
-    
+
     console.log('[builder options view] start init page ...')
 
     const props = model.properties;

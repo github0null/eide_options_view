@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <section class="section">
-        <div class="container">
+        <div class="container col-10">
             <div class="row justify-content-center">
-                <div class="col-lg-12">
+                <div class="col-12">
                     <!-- Tabs with icons -->
                     <div class="mb-4">
                         <big class="text-uppercase font-weight-bold">{{title}}</big>
@@ -16,106 +16,114 @@
                                     <i class="ni ni-user-run mr-2"></i>User Task
                                 </template>
 
-                                <fieldset>
-                                  <div class="row mb-3 mt-4">
-                                    <legend class="col-2"
-                                        data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                        title="Run some commands before build">Prebuild Task</legend>
-                                    <base-button class="col-1" size="sm" type="success" @click="add_prebuild_task">Add</base-button>
-                                  </div>
-                                  <div class="container">
-                                    <ul class="list-group">
-                                      <li class="list-group-item" v-for="(item, index) in task.before" :key="index">
-                                        <form class="pt-4 pb-4">
-                                          <div class="form-group row">
-                                            <label class="col-2 col-form-label"
+                                <div class="p-4">
+                                    <fieldset>
+                                        <div class="row mb-3 mt-4">
+                                            <legend class="col-3"
                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                title="A readable name for display">Task Name</label>
-                                            <div class="col-10">
-                                              <base-input v-model="item.name"></base-input>
+                                                title="Run some commands before build">Prebuild Task</legend>
+                                            <div class="col-1">
+                                                <base-button  size="sm" type="success" @click="add_prebuild_task">Add</base-button>
                                             </div>
-                                          </div>
-                                          <div class="form-group row">
-                                            <label class="col-2 col-form-label"
-                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                title="Command line">Command</label>
-                                            <div class="col-10">
-                                              <base-input v-model="item.command"></base-input>
-                                            </div>
-                                          </div>
-                                          <fieldset class="form-group row">
-                                            <legend class="col-form-label col-2 float-left pt-0">Options</legend>
-                                            <div class="col-3">
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.disable" 
-                                                data-toggle="tooltip" :data-placement="location.tooltip.options"
-                                                title="Disable this command">Disable</base-checkbox>
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.abortAfterFailed" 
-                                                data-toggle="tooltip" :data-placement="location.tooltip.options" 
-                                                title="Whether to skip subsequent commands if this command is failed">Abort If Failed</base-checkbox>
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.stopBuildAfterFailed"
-                                                data-toggle="tooltip" :data-placement="location.tooltip.options" 
-                                                title="Whether to stop building directly when this command is failed">Stop Build If Failed</base-checkbox>
-                                            </div>
-                                          </fieldset>
-                                          <div class="form-group">
-                                            <div class="col-12">
-                                              <base-button class="float-right" size="sm" type="danger" @click="delete_prebuild_task(item)"> Delete</base-button>
-                                            </div>
-                                          </div>
-                                        </form>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </fieldset>
+                                        </div>
+                                        <div class="pr-3 pl-3">
+                                            <ul class="list-group">
+                                            <li class="list-group-item" v-for="(item, index) in task.before" :key="index">
+                                                <form class="pt-4 pb-4">
+                                                <div class="form-group row">
+                                                    <label class="col-2 col-form-label"
+                                                        data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                        title="A readable name for display">Task Name</label>
+                                                    <div class="col-10">
+                                                    <base-input v-model="item.name"></base-input>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-2 col-form-label"
+                                                        data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                        title="Command line">Command</label>
+                                                    <div class="col-10">
+                                                    <base-input v-model="item.command"></base-input>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <legend class="col-form-label col-2 float-left pt-0">Options</legend>
+                                                    <div class="col-3">
+                                                        <base-checkbox class="mt-1 mb-3" v-model="item.disable" 
+                                                            data-toggle="tooltip" :data-placement="location.tooltip.options"
+                                                            title="Disable this command">Disable</base-checkbox>
+                                                        <base-checkbox class="mt-1 mb-3" v-model="item.abortAfterFailed" 
+                                                            data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                            title="Whether to skip subsequent commands if this command is failed">Abort If Failed</base-checkbox>
+                                                        <base-checkbox class="mt-1 mb-3" v-model="item.stopBuildAfterFailed"
+                                                            data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                            title="Whether to stop building directly when this command is failed">Stop Build If Failed</base-checkbox>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-12">
+                                                    <base-button class="float-right" size="sm" type="danger" @click="delete_prebuild_task(item)"> Delete</base-button>
+                                                    </div>
+                                                </div>
+                                                </form>
+                                            </li>
+                                            </ul>
+                                        </div>
+                                    </fieldset>
 
-                                <fieldset class="mt-4">
-                                  <div class="row mb-3 mt-4">
-                                    <legend class="col-2"
-                                        data-toggle="tooltip" :data-placement="location.tooltip.title" 
-                                        title="Run some commands after build">Post-build Task</legend>
-                                    <base-button class="col-1" size="sm" type="success" @click="add_postbuild_task">Add</base-button>
-                                  </div>
-                                  <div class="container">
-                                    <ul class="list-group">
-                                      <li class="list-group-item" v-for="(item, index) in task.after" :key="index">
-                                        <form class="pt-4 pb-4">
-                                          <div class="form-group row">
-                                            <label class="col-2 col-form-label"
-                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                title="A readable name for display">Task Name</label>
-                                            <div class="col-10">
-                                              <base-input v-model="item.name"></base-input>
+                                    <fieldset class="mt-4">
+                                        <div class="row mb-3 mt-4">
+                                            <legend class="col-3"
+                                                data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                                title="Run some commands after build"
+                                            >Post-build Task</legend>
+                                            <div class="col-1">
+                                                <base-button size="sm" type="success" @click="add_postbuild_task">Add</base-button>
                                             </div>
-                                          </div>
-                                          <div class="form-group row">
-                                            <label class="col-2 col-form-label"
-                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                title="Command line">Command</label>
-                                            <div class="col-10">
-                                              <base-input v-model="item.command"></base-input>
-                                            </div>
-                                          </div>
-                                          <fieldset class="form-group row">
-                                            <legend class="col-form-label col-2 float-left pt-0">Options</legend>
-                                            <div class="col-3">
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.disable"
-                                                data-toggle="tooltip" :data-placement="location.tooltip.options" 
-                                                title="Disable this command">Disable</base-checkbox>
-                                              <base-checkbox class="mt-3 mb-3" v-model="item.abortAfterFailed"
-                                                data-toggle="tooltip" :data-placement="location.tooltip.options" 
-                                                title="Whether to skip subsequent commands if this command is failed">Abort If Failed</base-checkbox>
-                                            </div>
-                                          </fieldset>
-                                          <div class="form-group">
-                                            <div class="col-12">
-                                              <base-button class="float-right" size="sm" type="danger" @click="delete_postbuild_task(item)"> Delete</base-button>
-                                            </div>
-                                          </div>
-                                        </form>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </fieldset>
+                                        </div>
+                                        <div class="pr-3 pl-3">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" v-for="(item, index) in task.after" :key="index">
+                                                    <form class="pt-4 pb-4">
+                                                        <div class="form-group row">
+                                                            <label class="col-2 col-form-label"
+                                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                                title="A readable name for display">Task Name</label>
+                                                            <div class="col-10">
+                                                            <base-input v-model="item.name"></base-input>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-2 col-form-label"
+                                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                                title="Command line">Command</label>
+                                                            <div class="col-10">
+                                                            <base-input v-model="item.command"></base-input>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <legend class="col-form-label col-2 float-left pt-0">Options</legend>
+                                                            <div class="col-3">
+                                                                <base-checkbox class="mt-1 mb-3" v-model="item.disable"
+                                                                    data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                                    title="Disable this command">Disable</base-checkbox>
+                                                                <base-checkbox class="mt-1 mb-3" v-model="item.abortAfterFailed"
+                                                                    data-toggle="tooltip" :data-placement="location.tooltip.options" 
+                                                                    title="Whether to skip subsequent commands if this command is failed">Abort If Failed</base-checkbox>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-12">
+                                                            <base-button class="float-right" size="sm" type="danger" @click="delete_postbuild_task(item)"> Delete</base-button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
                             </tab-pane>
 
                             <tab-pane key="tab2">
@@ -129,7 +137,7 @@
                                         <div v-for="(item, index) in global" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
-                                                    class="mt-3 mb-3 col-4" 
+                                                    class="mt-3 mb-3 col-8" 
                                                     v-model="item.value"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
@@ -139,10 +147,12 @@
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
                                                 <select class="col-2 custom-select custom-select-sm" v-model="item.value">
-                                                    <option v-for="enum_item in item.enums" :key="enum_item">{{enum_item}}</option>
+                                                    <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
+                                                        {{enum_item}}
+                                                    </option>
                                                 </select>
                                                 <a 
-                                                    class="col-3 col-form-label"
+                                                    class="col-6 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ item.name }}</a>
@@ -160,14 +170,16 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ item.name }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="item.value.push('')">Add</base-button>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
                                                         <div class="form-inline">
-                                                            <base-input class="input-group-sm mr-4" v-model="ele.value"/>
-                                                            <base-button class="" size="sm" type="danger" 
-                                                                @click="item.value.splice(ele_index, 1)"
+                                                            <div class="input-group input-group-sm w-50">
+                                                                <input type="text" class="form-control" v-model="ele.value">
+                                                            </div>
+                                                            <base-button class="ml-4" size="sm" type="danger" 
+                                                                @click="delete_from_list(item.value, ele.value)"
                                                             >Delete</base-button>
                                                         </div>
                                                     </li>
@@ -190,7 +202,7 @@
                                         <div v-for="(item, index) in cpp" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
-                                                    class="mt-3 mb-3 col-4" 
+                                                    class="mt-3 mb-3 col-8" 
                                                     v-model="item.value"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
@@ -200,10 +212,12 @@
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
                                                 <select class="col-2 custom-select custom-select-sm" v-model="item.value">
-                                                    <option v-for="enum_item in item.enums" :key="enum_item">{{enum_item}}</option>
+                                                    <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
+                                                        {{enum_item}}
+                                                    </option>
                                                 </select>
                                                 <a 
-                                                    class="col-3 col-form-label"
+                                                    class="col-6 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ item.name }}</a>
@@ -221,14 +235,16 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ item.name }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="item.value.push('')">Add</base-button>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
                                                         <div class="form-inline">
-                                                            <base-input class="input-group-sm mr-4" v-model="ele.value"/>
-                                                            <base-button class="" size="sm" type="danger" 
-                                                                @click="item.value.splice(ele_index, 1)"
+                                                            <div class="input-group input-group-sm w-50">
+                                                                <input type="text" class="form-control" v-model="ele.value">
+                                                            </div>
+                                                            <base-button class="ml-4" size="sm" type="danger" 
+                                                                @click="delete_from_list(item.value, ele.value)"
                                                             >Delete</base-button>
                                                         </div>
                                                     </li>
@@ -250,7 +266,7 @@
                                         <div v-for="(item, index) in asm" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
-                                                    class="mt-3 mb-3 col-4" 
+                                                    class="mt-3 mb-3 col-8" 
                                                     v-model="item.value"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
@@ -260,10 +276,12 @@
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
                                                 <select class="col-2 custom-select custom-select-sm" v-model="item.value">
-                                                    <option v-for="enum_item in item.enums" :key="enum_item">{{enum_item}}</option>
+                                                    <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
+                                                        {{enum_item}}
+                                                    </option>
                                                 </select>
                                                 <a 
-                                                    class="col-3 col-form-label"
+                                                    class="col-6 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ item.name }}</a>
@@ -281,14 +299,16 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ item.name }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="item.value.push('')">Add</base-button>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
                                                         <div class="form-inline">
-                                                            <base-input class="input-group-sm mr-4" v-model="ele.value"/>
-                                                            <base-button class="" size="sm" type="danger" 
-                                                                @click="item.value.splice(ele_index, 1)"
+                                                            <div class="input-group input-group-sm w-50">
+                                                                <input type="text" class="form-control" v-model="ele.value">
+                                                            </div>
+                                                            <base-button class="ml-4" size="sm" type="danger" 
+                                                                @click="delete_from_list(item.value, ele.value)"
                                                             >Delete</base-button>
                                                         </div>
                                                     </li>
@@ -310,7 +330,7 @@
                                         <div v-for="(item, index) in linker" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
-                                                    class="mt-3 mb-3 col-4" 
+                                                    class="mt-3 mb-3 col-8" 
                                                     v-model="item.value"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
@@ -320,10 +340,12 @@
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
                                                 <select class="col-2 custom-select custom-select-sm" v-model="item.value">
-                                                    <option v-for="enum_item in item.enums" :key="enum_item">{{enum_item}}</option>
+                                                    <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
+                                                        {{enum_item}}
+                                                    </option>
                                                 </select>
                                                 <a 
-                                                    class="col-3 col-form-label"
+                                                    class="col-6 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ item.name }}</a>
