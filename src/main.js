@@ -75,7 +75,11 @@ function saveAll() {
         for (const data of vueData) {
             switch (data.type) {
                 case 'array':
-                    oldData[data.name] = data.value.map((ele) => { return ele.value })
+                    if (data.value.length > 0) {
+                        oldData[data.name] = data.value.map((ele) => { return ele.value })
+                    } else {
+                        delete oldData[data.name] // delete empty array
+                    }
                     break;
                 case 'bool':
                     if (data.value) {
