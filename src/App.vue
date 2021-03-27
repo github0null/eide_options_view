@@ -143,7 +143,7 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >
-                                                    {{item.name}}
+                                                    {{ to_readable_name(item.name) }}
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
@@ -156,11 +156,12 @@
                                                     class="col-6 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
-                                                >{{ item.name }}</a>
+                                                >{{ to_readable_name(item.name) }}</a>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
-                                                    :title="item.description||''">{{item.name}}</a>
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</a>
                                                 <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
                                                 </base-input>
@@ -170,7 +171,7 @@
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
-                                                    >{{ item.name }}</a>
+                                                    >{{ to_readable_name(item.name) }}</a>
                                                     <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
@@ -208,7 +209,7 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >
-                                                    {{item.name}}
+                                                    {{ to_readable_name(item.name) }}
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
@@ -221,11 +222,12 @@
                                                     class="col-6 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
-                                                >{{ item.name }}</a>
+                                                >{{ to_readable_name(item.name) }}</a>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
-                                                    :title="item.description||''">{{item.name}}</a>
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</a>
                                                 <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
                                                 </base-input>
@@ -235,7 +237,7 @@
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
-                                                    >{{ item.name }}</a>
+                                                    >{{ to_readable_name(item.name) }}</a>
                                                     <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
@@ -272,7 +274,7 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >
-                                                    {{item.name}}
+                                                    {{ to_readable_name(item.name) }}
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
@@ -285,11 +287,12 @@
                                                     class="col-6 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
-                                                >{{ item.name }}</a>
+                                                >{{ to_readable_name(item.name) }}</a>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
-                                                    :title="item.description||''">{{item.name}}</a>
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</a>
                                                 <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
                                                 </base-input>
@@ -299,7 +302,7 @@
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
-                                                    >{{ item.name }}</a>
+                                                    >{{ to_readable_name(item.name) }}</a>
                                                     <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
@@ -336,7 +339,7 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >
-                                                    {{item.name}}
+                                                    {{ to_readable_name(item.name) }}
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
@@ -349,11 +352,12 @@
                                                     class="col-6 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
-                                                >{{ item.name }}</a>
+                                                >{{ to_readable_name(item.name) }}</a>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
-                                                    :title="item.description||''">{{item.name}}</a>
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</a>
                                                 <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
                                                 </base-input>
@@ -363,7 +367,7 @@
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
-                                                    >{{ item.name }}</a>
+                                                    >{{ to_readable_name(item.name) }}</a>
                                                     <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
@@ -446,7 +450,9 @@ base-input {
     font-family: Consolas !important;
 }
 
-a:focus, input:focus, select:focus {
+a:focus,
+input:focus,
+select:focus {
     outline: none !important; /* remove outline when get focus */
 }
 
@@ -592,6 +598,25 @@ export default {
             if (index != -1) {
                 list.splice(index, 1);
             }
+        },
+
+        to_readable_name: function (name) {
+
+            const str = name.replace(/-/g, ' ').replace(/#/g, '/').replace(/\$/g, '')
+
+            let result = ''
+            let prev_char = ''
+
+            const isLower = (str) => { return str >= 'a' && str <= 'z' }
+            const isUpper = (str) => { return str >= 'A' && str <= 'Z' }
+
+            for (const char of str) {
+                if (isUpper(char) && isLower(prev_char)) result += ' '
+                result += char
+                prev_char = char
+            }
+
+            return result
         }
     },
 };
