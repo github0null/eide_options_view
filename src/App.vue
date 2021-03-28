@@ -8,7 +8,7 @@
                     <div class="mb-4">
                         <big class="text-uppercase font-weight-bold">{{title}}</big>
                         <base-button type="success" class="float-right" @click="onSave">Save All</base-button>
-                        <base-button type="primary" class="float-right mr-4" @click="onOpenConfig">Open Config</base-button>
+                        <base-button outline type="primary" class="float-right mr-4" @click="onOpenConfig">Open Config</base-button>
                     </div>
                     <tabs fill class="flex-column flex-md-row">
                         <card shadow>
@@ -147,7 +147,9 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
-                                                <select class="col-2 custom-select custom-select-sm" v-model="item.value">
+                                                <select class="selectpicker show-tick" 
+                                                    data-style="btn-outline-dark btn-sm" 
+                                                    v-model="item.value">
                                                     <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
                                                         {{enum_item}}
                                                     </option>
@@ -213,7 +215,9 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
-                                                <select class="col-2 custom-select custom-select-sm" v-model="item.value">
+                                                <select class="selectpicker show-tick" 
+                                                    data-style="btn-outline-dark btn-sm" 
+                                                    v-model="item.value">
                                                     <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
                                                         {{enum_item}}
                                                     </option>
@@ -278,7 +282,9 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
-                                                <select class="col-2 custom-select custom-select-sm" v-model="item.value">
+                                                <select class="selectpicker show-tick" 
+                                                    data-style="btn-outline-dark btn-sm" 
+                                                    v-model="item.value">
                                                     <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
                                                         {{enum_item}}
                                                     </option>
@@ -343,7 +349,9 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline" v-else-if="item.type == 'enum'">
-                                                <select class="col-2 custom-select custom-select-sm" v-model="item.value">
+                                                <select class="selectpicker show-tick" 
+                                                    data-style="btn-outline-dark btn-sm" 
+                                                    v-model="item.value">
                                                     <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
                                                         {{enum_item}}
                                                     </option>
@@ -473,6 +481,7 @@ import Modal from "@/components/Modal.vue";
 
 // css
 import "bootstrap-icons/font/bootstrap-icons.css"
+import "vue-m-message/dist/index.css"
 
 let _instance;
 
@@ -620,4 +629,13 @@ export default {
         }
     },
 };
+
+/* active bootstrap components */
+
+// eslint-disable-next-line no-undef
+$(function () { $('[data-toggle="popover"]').popover() });
+// eslint-disable-next-line no-undef
+$(function () { $('[data-toggle="tooltip"]').tooltip() });
+// eslint-disable-next-line no-undef
+//$(function () { $('select').selectpicker() })
 </script>
