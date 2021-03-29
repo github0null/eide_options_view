@@ -1,15 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Argon from './plugins/argon-kit'
-import Message from 'vue-m-message'
 
 // ====== Init ======
 
-Vue.config.productionTip = true
+Vue.config.productionTip = false
 
 /* enable components */
 Vue.use(Argon)
-Vue.use(Message)
 
 new Vue({ render: h => h(App) }).$mount('#app')
 
@@ -53,17 +51,17 @@ window.addEventListener('message', event => {
 
 function showToast(data) {
 
-    //vueInstance.$emit('save-status', status)
-    Message({
-        title: data.success ? 'Success' : 'Failed',
-        type: data.success ? 'success' : 'error',
-        iconImg: `icon/${data.success ? 'success' : 'error'}.svg`,
-        message: data.msg,
-        showClose: true,
-        collapsable: false,
-        duration: 5000,
-        position: 'top-left'
-    })
+    const title = data.success ? 'Success' : 'Failed'
+
+    // eslint-disable-next-line no-undef
+    bootoast.toast({
+        message: `<strong>${title}</strong><p class="mt-2">${data.msg}</p>`,
+        type: data.success ? 'success' : 'danger',
+        position: 'left-top',
+        timeout: 4,
+        animationDuration: 300,
+        dismissible: true
+    });
 }
 
 function saveAll() {
