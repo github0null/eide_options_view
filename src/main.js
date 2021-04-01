@@ -57,8 +57,8 @@ function showToast(data) {
     bootoast.toast({
         message: `<strong>${title}</strong><p class="mt-2">${data.msg}</p>`,
         type: data.success ? 'success' : 'danger',
-        position: 'left-top',
-        timeout: 4,
+        position: 'right-bottom',
+        timeout: 3,
         animationDuration: 300,
         dismissible: true
     });

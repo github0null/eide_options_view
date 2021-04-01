@@ -77,7 +77,7 @@
                                             <legend class="col-3"
                                                 data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                 title="Run some commands after build"
-                                            >Post-build Task</legend>
+                                            >Post Build Task</legend>
                                             <div class="col-1">
                                                 <base-button size="sm" type="success" @click="add_postbuild_task">Add</base-button>
                                             </div>
