@@ -167,6 +167,17 @@
                                                     v-model="item.value">
                                                 </base-input>
                                             </div>
+                                            <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
+                                                <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</a>
+                                                <textarea class="form-control form-control-alternative mt-2" 
+                                                    :style="style.textarea"
+                                                    :rows="get_rows_by_value(item.value)" 
+                                                    :placeholder="item.placeHolder || ''"
+                                                    v-model="item.value">
+                                                </textarea>
+                                            </div>
                                             <div class="mb-2" v-else-if="item.type == 'array'">
                                                 <div class="form-inline mb-2 mt-2">
                                                     <a class="mr-4" data-toggle="tooltip" 
@@ -234,6 +245,17 @@
                                                     v-model="item.value">
                                                 </base-input>
                                             </div>
+                                            <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
+                                                <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</a>
+                                                <textarea class="form-control form-control-alternative mt-2" 
+                                                    :style="style.textarea"
+                                                    :rows="get_rows_by_value(item.value)" 
+                                                    :placeholder="item.placeHolder || ''"
+                                                    v-model="item.value">
+                                                </textarea>
+                                            </div>
                                             <div class="mb-2" v-else-if="item.type == 'array'">
                                                 <div class="form-inline mb-2 mt-2">
                                                     <a class="mr-4" data-toggle="tooltip" 
@@ -300,6 +322,17 @@
                                                     v-model="item.value">
                                                 </base-input>
                                             </div>
+                                            <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
+                                                <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</a>
+                                                <textarea class="form-control form-control-alternative mt-2" 
+                                                    :style="style.textarea"
+                                                    :rows="get_rows_by_value(item.value)" 
+                                                    :placeholder="item.placeHolder || ''"
+                                                    v-model="item.value">
+                                                </textarea>
+                                            </div>
                                             <div class="mb-2" v-else-if="item.type == 'array'">
                                                 <div class="form-inline mb-2 mt-2">
                                                     <a class="mr-4" data-toggle="tooltip" 
@@ -365,6 +398,17 @@
                                                 <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
                                                 </base-input>
+                                            </div>
+                                            <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
+                                                <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</a>
+                                                <textarea class="form-control form-control-alternative mt-2" 
+                                                    :style="style.textarea"
+                                                    :rows="get_rows_by_value(item.value)" 
+                                                    :placeholder="item.placeHolder || ''"
+                                                    v-model="item.value">
+                                                </textarea>
                                             </div>
                                             <div class="mb-2" v-else-if="item.type == 'array'">
                                                 <div class="form-inline mb-2 mt-2">
@@ -464,6 +508,16 @@ input {
     color: #2c3343 !important; /* set font color for input */
     font-family: Consolas !important;
 }
+
+.form-control-alternative {
+    border: 1px solid #cad1d7 !important;
+    border-radius: .25rem !important;
+}
+
+.form-control-alternative:focus {
+    border: 1px solid #888d92 !important;
+    border-radius: .25rem !important;
+}
 </style>
 
 <script>
@@ -496,6 +550,9 @@ export default {
     data() {
         return {
             title: 'Builder Options',
+            style: {
+                textarea: 'color: #2c3343; font-family: Consolas'
+            },
             dialog: {
                 title: '',
                 msg: '',
@@ -621,6 +678,11 @@ export default {
             }
 
             return result
+        },
+
+        get_rows_by_value: function (value) {
+            const rows = value.length / 80 + (value.length % 80 > 0)
+            return rows || 1
         }
     },
 };

@@ -86,9 +86,14 @@ function saveAll() {
         'linker': 'linker'
     }
     for (const gName in opt_name_map) {
+
         const vueData = vueInstance[gName]
         const oldData = data_obj[opt_name_map[gName]]
+
+        // get value from form items
         for (const data of vueData) {
+
+            // convert data
             switch (data.type) {
                 case 'array':
                     if (data.value.length > 0) {
@@ -111,6 +116,14 @@ function saveAll() {
                         oldData[data.name] = data.value
                     }
                     break;
+            }
+
+            // deal data
+            if (typeof oldData[data.name] == 'string') {
+                oldData[data.name] = oldData[data.name]
+                    .replace(/\r\n|\n/g, ' ')
+                    .replace(/\s{2,}/g, ' ')
+                    .trim()
             }
         }
     }
@@ -150,8 +163,9 @@ function getFieldInfo(model, fieldObj) {
 }
 
 function getFieldType(field_info) {
-
-    if (Array.isArray(field_info.type)) {
+    if (field_info.isHugeText) {
+        return 'textarea'
+    } else if (Array.isArray(field_info.type)) {
         return 'string'
     } else {
         return field_info.type
@@ -173,9 +187,7 @@ function setFieldValue(field_info, field, data) {
         case 'boolean':
             field.type = 'bool'
             break;
-        case 'object': // not support 'object'
-            return false;
-        default: // string
+        case 'string':
             if (field_info['enum']) {
                 field.type = 'enum'
                 field.enums = field_info['enum']
@@ -188,10 +200,17 @@ function setFieldValue(field_info, field, data) {
                 field.placeHolder = field.description
             }
             break;
+        case 'textarea': // textarea
+            field.type = type;
+            field.placeHolder = field.description
+            break;
+        default:
+            console.warn(`[builder options view] [warn] not support this type: '${type}' for field !`)
+            return false; // not support this type
     }
 
-    // set value
-    if (data) { // data is valid
+    // data is valid, set value
+    if (data) {
         switch (type) {
             case 'array':
                 field.value = (Array.isArray(data) ? data : [data])
