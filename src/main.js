@@ -163,8 +163,10 @@ function getFieldInfo(model, fieldObj) {
 }
 
 function getFieldType(field_info) {
-    if (field_info.isHugeText) {
+    if (field_info['size'] == 'huge') {
         return 'textarea'
+    } else if (field_info['size'] == 'small') {
+        return 'short_input'
     } else if (Array.isArray(field_info.type)) {
         return 'string'
     } else {
@@ -200,6 +202,7 @@ function setFieldValue(field_info, field, data) {
                 field.placeHolder = field.description
             }
             break;
+        case 'short_input':
         case 'textarea': // textarea
             field.type = type;
             field.placeHolder = field.description

@@ -35,7 +35,7 @@
                                                     <label class="col-2 col-form-label"
                                                         data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                         title="A readable name for display">Task Name</label>
-                                                    <div class="col-10">
+                                                    <div class="col-5">
                                                     <base-input v-model="item.name"></base-input>
                                                     </div>
                                                 </div>
@@ -90,7 +90,7 @@
                                                             <label class="col-2 col-form-label"
                                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                                 title="A readable name for display">Task Name</label>
-                                                            <div class="col-10">
+                                                            <div class="col-5">
                                                             <base-input v-model="item.name"></base-input>
                                                             </div>
                                                         </div>
@@ -146,7 +146,7 @@
                                                     {{ to_readable_name(item.name) }}
                                                 </base-checkbox>
                                             </div>
-                                            <div class="form-inline" v-else-if="item.type == 'enum'">
+                                            <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
                                                 <select class="col-2 custom-select custom-select-sm" 
                                                     v-model="item.value">
                                                     <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
@@ -158,6 +158,18 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ to_readable_name(item.name) }}</a>
+                                            </div>
+                                            <div class="mt-3 mb-1 form-group row" v-else-if="item.type == 'short_input'">
+                                                <label class="col-2 col-form-label pr-0 mr-0"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</label>
+                                                <div class="col-4">
+                                                    <base-input 
+                                                        :placeholder="item.placeHolder || ''" 
+                                                        v-model="item.value">
+                                                    </base-input>
+                                                </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
@@ -224,7 +236,7 @@
                                                     {{ to_readable_name(item.name) }}
                                                 </base-checkbox>
                                             </div>
-                                            <div class="form-inline" v-else-if="item.type == 'enum'">
+                                            <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
                                                 <select class="col-2 custom-select custom-select-sm" 
                                                     v-model="item.value">
                                                     <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
@@ -236,6 +248,18 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ to_readable_name(item.name) }}</a>
+                                            </div>
+                                            <div class="mt-3 mb-1 form-group row" v-else-if="item.type == 'short_input'">
+                                                <label class="col-2 col-form-label pr-0 mr-0"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</label>
+                                                <div class="col-4">
+                                                    <base-input 
+                                                        :placeholder="item.placeHolder || ''" 
+                                                        v-model="item.value">
+                                                    </base-input>
+                                                </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
@@ -301,7 +325,7 @@
                                                     {{ to_readable_name(item.name) }}
                                                 </base-checkbox>
                                             </div>
-                                            <div class="form-inline" v-else-if="item.type == 'enum'">
+                                            <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
                                                 <select class="col-2 custom-select custom-select-sm" 
                                                     v-model="item.value">
                                                     <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
@@ -313,6 +337,18 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ to_readable_name(item.name) }}</a>
+                                            </div>
+                                            <div class="mt-3 mb-1 form-group row" v-else-if="item.type == 'short_input'">
+                                                <label class="col-2 col-form-label pr-0 mr-0"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</label>
+                                                <div class="col-4">
+                                                    <base-input 
+                                                        :placeholder="item.placeHolder || ''" 
+                                                        v-model="item.value">
+                                                    </base-input>
+                                                </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
@@ -378,7 +414,7 @@
                                                     {{ to_readable_name(item.name) }}
                                                 </base-checkbox>
                                             </div>
-                                            <div class="form-inline" v-else-if="item.type == 'enum'">
+                                            <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
                                                 <select class="col-2 custom-select custom-select-sm" 
                                                     v-model="item.value">
                                                     <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
@@ -390,6 +426,18 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ to_readable_name(item.name) }}</a>
+                                            </div>
+                                            <div class="mt-3 mb-1 form-group row" v-else-if="item.type == 'short_input'">
+                                                <label class="col-2 col-form-label pr-0 mr-0"
+                                                    data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                    :title="item.description||''"
+                                                >{{ to_readable_name(item.name) }}</label>
+                                                <div class="col-4">
+                                                    <base-input 
+                                                        :placeholder="item.placeHolder || ''" 
+                                                        v-model="item.value">
+                                                    </base-input>
+                                                </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
