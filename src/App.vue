@@ -138,12 +138,12 @@
                                         <div v-for="(item, index) in global" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
-                                                    class="mt-3 mb-3 col-8" 
+                                                    class="mt-3 mb-3 col-12" 
                                                     v-model="item.value"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >
-                                                    {{ to_readable_name(item.name) }}
+                                                    {{ get_readable_name(item) }}
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
@@ -154,17 +154,17 @@
                                                     </option>
                                                 </select>
                                                 <a 
-                                                    class="col-6 col-form-label"
+                                                    class="col-10 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                             </div>
                                             <div class="mt-3 mb-1 form-group row" v-else-if="item.type == 'short_input'">
-                                                <label class="col-2 col-form-label pr-0 mr-0"
+                                                <label class="col-3 col-form-label pr-0 mr-0"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</label>
-                                                <div class="col-4">
+                                                >{{ get_readable_name(item) }}</label>
+                                                <div class="col-5">
                                                     <base-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
@@ -174,7 +174,7 @@
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                                 <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
                                                 </base-input>
@@ -182,7 +182,7 @@
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                                 <textarea class="form-control form-control-alternative mt-2" 
                                                     :style="style.textarea"
                                                     :rows="get_rows_by_value(item.value)" 
@@ -195,7 +195,7 @@
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
-                                                    >{{ to_readable_name(item.name) }}</a>
+                                                    >{{ get_readable_name(item) }}</a>
                                                     <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
@@ -228,12 +228,12 @@
                                         <div v-for="(item, index) in cpp" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
-                                                    class="mt-3 mb-3 col-8" 
+                                                    class="mt-3 mb-3 col-12" 
                                                     v-model="item.value"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >
-                                                    {{ to_readable_name(item.name) }}
+                                                    {{ get_readable_name(item) }}
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
@@ -244,17 +244,17 @@
                                                     </option>
                                                 </select>
                                                 <a 
-                                                    class="col-6 col-form-label"
+                                                    class="col-10 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                             </div>
                                             <div class="mt-3 mb-1 form-group row" v-else-if="item.type == 'short_input'">
-                                                <label class="col-2 col-form-label pr-0 mr-0"
+                                                <label class="col-3 col-form-label pr-0 mr-0"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</label>
-                                                <div class="col-4">
+                                                >{{ get_readable_name(item) }}</label>
+                                                <div class="col-5">
                                                     <base-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
@@ -264,7 +264,7 @@
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                                 <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
                                                 </base-input>
@@ -272,7 +272,7 @@
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                                 <textarea class="form-control form-control-alternative mt-2" 
                                                     :style="style.textarea"
                                                     :rows="get_rows_by_value(item.value)" 
@@ -285,7 +285,7 @@
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
-                                                    >{{ to_readable_name(item.name) }}</a>
+                                                    >{{ get_readable_name(item) }}</a>
                                                     <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
@@ -317,12 +317,12 @@
                                         <div v-for="(item, index) in asm" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
-                                                    class="mt-3 mb-3 col-8" 
+                                                    class="mt-3 mb-3 col-12" 
                                                     v-model="item.value"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >
-                                                    {{ to_readable_name(item.name) }}
+                                                    {{ get_readable_name(item) }}
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
@@ -333,17 +333,17 @@
                                                     </option>
                                                 </select>
                                                 <a 
-                                                    class="col-6 col-form-label"
+                                                    class="col-10 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                             </div>
                                             <div class="mt-3 mb-1 form-group row" v-else-if="item.type == 'short_input'">
-                                                <label class="col-2 col-form-label pr-0 mr-0"
+                                                <label class="col-3 col-form-label pr-0 mr-0"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</label>
-                                                <div class="col-4">
+                                                >{{ get_readable_name(item) }}</label>
+                                                <div class="col-5">
                                                     <base-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
@@ -353,7 +353,7 @@
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                                 <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
                                                 </base-input>
@@ -361,7 +361,7 @@
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                                 <textarea class="form-control form-control-alternative mt-2" 
                                                     :style="style.textarea"
                                                     :rows="get_rows_by_value(item.value)" 
@@ -374,7 +374,7 @@
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
-                                                    >{{ to_readable_name(item.name) }}</a>
+                                                    >{{ get_readable_name(item) }}</a>
                                                     <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
@@ -406,12 +406,12 @@
                                         <div v-for="(item, index) in linker" :key="index">
                                             <div v-if="item.type == 'bool'">
                                                 <base-checkbox 
-                                                    class="mt-3 mb-3 col-8" 
+                                                    class="mt-3 mb-3 col-12" 
                                                     v-model="item.value"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >
-                                                    {{ to_readable_name(item.name) }}
+                                                    {{ get_readable_name(item) }}
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
@@ -422,17 +422,17 @@
                                                     </option>
                                                 </select>
                                                 <a 
-                                                    class="col-6 col-form-label"
+                                                    class="col-10 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                             </div>
                                             <div class="mt-3 mb-1 form-group row" v-else-if="item.type == 'short_input'">
-                                                <label class="col-2 col-form-label pr-0 mr-0"
+                                                <label class="col-3 col-form-label pr-0 mr-0"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</label>
-                                                <div class="col-4">
+                                                >{{ get_readable_name(item) }}</label>
+                                                <div class="col-5">
                                                     <base-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
@@ -442,7 +442,7 @@
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                                 <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
                                                 </base-input>
@@ -450,7 +450,7 @@
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
-                                                >{{ to_readable_name(item.name) }}</a>
+                                                >{{ get_readable_name(item) }}</a>
                                                 <textarea class="form-control form-control-alternative mt-2" 
                                                     :style="style.textarea"
                                                     :rows="get_rows_by_value(item.value)" 
@@ -463,7 +463,7 @@
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
-                                                    >{{ to_readable_name(item.name) }}</a>
+                                                    >{{ get_readable_name(item) }}</a>
                                                     <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
                                                 </div>
                                                 <ul class="list-group">
@@ -709,6 +709,17 @@ export default {
             }
         },
 
+        get_readable_name: function (item) {
+
+            if (item.disable_readable_name) {
+                return this.to_readable_name(item.name)
+            }
+
+            return item.readable_name
+                || item.description
+                || this.to_readable_name(item.name)
+        },
+
         to_readable_name: function (name) {
 
             const str = name.replace(/-/g, ' ').replace(/#/g, '/').replace(/\$/g, '')
@@ -729,7 +740,7 @@ export default {
         },
 
         get_rows_by_value: function (value) {
-            const rows = value.length / 80 + (value.length % 80 > 0)
+            const rows = value.length / 60 + (value.length % 60 > 0)
             return rows || 1
         }
     },

@@ -181,6 +181,10 @@ function setFieldValue(field_info, field, data) {
     // set description
     field.description = field_info.markdownDescription || field_info.description
 
+    // other
+    field.disable_readable_name = field_info.disable_readable_name
+    field.readable_name = field_info.readable_name
+
     // set type
     switch (type) {
         case 'array':
