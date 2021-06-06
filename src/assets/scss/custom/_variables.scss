@@ -573,6 +573,8 @@ $custom-checkbox-indicator-border-radius:       $border-radius-sm !default;
 $custom-toggle-slider-bg:   #ddd !default;
 $custom-toggle-checked-bg:  theme-color("primary") !default;
 
+$custom-select-indicator-color: $gray-600 !default;
+
 // Form validation
 
 $form-feedback-valid-bg:         lighten($success, 15%);

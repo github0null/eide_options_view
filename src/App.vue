@@ -541,9 +541,85 @@ legend {
     font-size: 1rem !important;
 }
 
+section {
+    color: var(--vscode-editor-foreground) !important;
+    background-color: var(--vscode-editor-background) !important;
+}
+
+.nav-link {
+    color: var(--vscode-editor-foreground) !important;
+    background-color: var(--vscode-editor-background) !important;
+    border: 1px solid var(--primary) !important;
+}
+
+.nav-pills,
+.card,
+.card-body,
+.list-group-item,
+.custom-select,
+.custom-form {
+    color: var(--vscode-editor-foreground) !important;
+    background-color: var(--vscode-editor-background) !important;
+}
+
+.custom-checkbox .custom-control-label:before {
+    background-color: var(--vscode-editor-background);
+}
+
+.card-body {
+    border-radius: 2px;
+    box-shadow: 0 5px 15px var(--vscode-input-background);
+}
+
+.nav-link {
+    border: 1px solid var(--vscode-button-background) !important;
+}
+
+.nav-pills.show>.nav-link {
+    color: var(--vscode-editor-foreground) !important;
+    background-color: var(--vscode-button-background) !important;
+    border: 1px solid var(--vscode-button-background) !important;
+}
+
 base-input {
-    color: #2c3343 !important; /* set font color for input */
+    color: var(--vscode-input-foreground) !important; /* set font color for input */
+    background-color: var(--vscode-editor-background) !important;
     font-family: Consolas !important;
+    border: 1px solid var(--vscode-input-foreground) !important;
+    border-radius: .25rem !important;
+}
+
+input {
+    color: var(--vscode-input-foreground) !important; /* set font color for input */
+    background-color: var(--vscode-editor-background) !important;
+    font-family: Consolas !important;
+    border: 1px solid var(--vscode-input-foreground) !important;
+    border-radius: .25rem !important;
+}
+
+.form-control-alternative {
+    color: var(--vscode-input-foreground) !important; /* set font color for input */
+    background-color: var(--vscode-editor-background) !important;
+    border: 1px solid var(--vscode-input-foreground) !important;
+    border-radius: .25rem !important;
+}
+
+.form-control {
+    border: 1px solid var(--vscode-input-foreground) !important;
+    border-radius: .25rem !important;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: var(--vscode-input-placeholderForeground) !important;
+}
+
+/* actions */
+
+.nav-pills.active,
+.nav-link.active {
+    color: var(--vscode-button-foreground) !important;
+    background-color: var(--vscode-button-background) !important;
+    border: 1px solid var(--vscode-button-background) !important;
 }
 
 a:focus,
@@ -552,20 +628,15 @@ select:focus {
     outline: none !important; /* remove outline when get focus */
 }
 
-input {
-    color: #2c3343 !important; /* set font color for input */
-    font-family: Consolas !important;
-}
-
-.form-control-alternative {
-    border: 1px solid #cad1d7 !important;
-    border-radius: .25rem !important;
-}
-
+base-input:focus,
+input:focus,
+.form-control:focus,
 .form-control-alternative:focus {
-    border: 1px solid #888d92 !important;
+    border: 1px solid var(--vscode-focusBorder) !important;
     border-radius: .25rem !important;
+    box-shadow: 0 1px 3px var(--vscode-focusBorder);
 }
+
 </style>
 
 <script>
@@ -599,7 +670,7 @@ export default {
         return {
             title: 'Builder Options',
             style: {
-                textarea: 'color: #2c3343; font-family: Consolas'
+                textarea: 'font-family: Consolas'
             },
             dialog: {
                 title: '',
