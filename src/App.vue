@@ -549,7 +549,7 @@ section {
 .nav-link {
     color: var(--vscode-editor-foreground) !important;
     background-color: var(--vscode-editor-background) !important;
-    border: 1px solid var(--primary) !important;
+    border: 1px solid var(--vscode-button-background) !important;
 }
 
 .nav-pills,
@@ -564,15 +564,12 @@ section {
 
 .custom-checkbox .custom-control-label:before {
     background-color: var(--vscode-editor-background);
+    border-color: var(--vscode-input-placeholderForeground);
 }
 
 .card-body {
     border-radius: 2px;
     box-shadow: 0 5px 15px var(--vscode-input-background);
-}
-
-.nav-link {
-    border: 1px solid var(--vscode-button-background) !important;
 }
 
 .nav-pills.show>.nav-link {
@@ -585,7 +582,7 @@ base-input {
     color: var(--vscode-input-foreground) !important; /* set font color for input */
     background-color: var(--vscode-editor-background) !important;
     font-family: Consolas !important;
-    border: 1px solid var(--vscode-input-foreground) !important;
+    border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
 }
 
@@ -593,24 +590,30 @@ input {
     color: var(--vscode-input-foreground) !important; /* set font color for input */
     background-color: var(--vscode-editor-background) !important;
     font-family: Consolas !important;
-    border: 1px solid var(--vscode-input-foreground) !important;
+    border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
 }
 
 .form-control-alternative {
     color: var(--vscode-input-foreground) !important; /* set font color for input */
     background-color: var(--vscode-editor-background) !important;
-    border: 1px solid var(--vscode-input-foreground) !important;
+    border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
 }
 
 .form-control {
-    border: 1px solid var(--vscode-input-foreground) !important;
+    border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
 }
 
 .form-control::-webkit-input-placeholder {
     color: var(--vscode-input-placeholderForeground) !important;
+}
+
+select,
+.custom-select {
+    border: 1px solid var(--vscode-input-placeholderForeground) !important;
+    border-radius: .25rem !important;
 }
 
 /* actions */
@@ -624,8 +627,15 @@ input {
 
 a:focus,
 input:focus,
-select:focus {
+select:focus,
+.custom-select:focus {
     outline: none !important; /* remove outline when get focus */
+}
+
+select:focus,
+.custom-select:focus {
+    border: 1px solid var(--vscode-focusBorder) !important;
+    border-radius: .25rem !important;
 }
 
 base-input:focus,
