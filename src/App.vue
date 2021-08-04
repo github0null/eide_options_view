@@ -751,7 +751,7 @@ export default {
 
                     'title.btn.add': '添加',
                     'title.btn.del': '删除',
-                    'title.btn.save': '保存所有',
+                    'title.btn.save': '全部保存',
                     'title.btn.open.config': '打开配置',
                 }
             },
