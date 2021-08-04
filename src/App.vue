@@ -207,7 +207,7 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ get_readable_name(item) }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
+                                                    <base-button class="float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
@@ -296,7 +296,7 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ get_readable_name(item) }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
+                                                    <base-button class="float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
@@ -385,7 +385,7 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ get_readable_name(item) }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
+                                                    <base-button class="float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
@@ -474,7 +474,7 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ get_readable_name(item) }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
+                                                    <base-button class="float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
