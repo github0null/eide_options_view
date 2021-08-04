@@ -22,6 +22,7 @@
                                         <div class="row mb-3 mt-4">
                                             <legend class="col-3"
                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                :title="get_str('prompt.task.prebuild')"
                                             >{{ get_str('title.task.prebuild') }}</legend>
                                             <div class="col-1">
                                                 <base-button  size="sm" type="success" @click="add_prebuild_task">{{ get_str('title.btn.add') }}</base-button>
@@ -81,6 +82,7 @@
                                         <div class="row mb-3 mt-4">
                                             <legend class="col-3"
                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                                :title="get_str('prompt.task.posbuild')"
                                             >{{ get_str('title.task.posbuild') }}</legend>
                                             <div class="col-1">
                                                 <base-button size="sm" type="success" @click="add_postbuild_task">{{ get_str('title.btn.add') }}</base-button>
@@ -709,6 +711,8 @@ export default {
                     'title.task.command': 'Command',
                     'title.task.options': 'Options',
                     
+                    'prompt.task.prebuild': 'Run some shell task before build',
+                    'prompt.task.posbuild': 'Run some shell task after build done',
                     'prompt.task.name': 'A Human-Readable Name',
                     'prompt.task.command': 'Shell Command Line',
                     'prompt.task.disable': 'Disable this command',
@@ -736,6 +740,8 @@ export default {
                     'title.task.command': '命令',
                     'title.task.options': '选项',
 
+                    'prompt.task.prebuild': '指定一些任务，将在构建开始前运行',
+                    'prompt.task.posbuild': '指定一些任务，将在构建完成后运行',
                     'prompt.task.name': '用于显示的只读名称',
                     'prompt.task.command': 'Shell 命令行',
                     'prompt.task.disable': '禁用该任务',
