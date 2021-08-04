@@ -6,15 +6,15 @@
                 <div class="col-12">
                     <!-- Tabs with icons -->
                     <div class="mb-4">
-                        <big class="text-uppercase font-weight-bold">{{title}}</big>
-                        <base-button type="success" class="float-right" @click="onSave">Save All</base-button>
-                        <base-button outline type="primary" class="float-right mr-4" @click="onOpenConfig">Open Config</base-button>
+                        <big class="text-uppercase font-weight-bold">{{ get_str('title') }}</big>
+                        <base-button type="success" class="float-right" @click="onSave">{{ get_str('title.btn.save') }}</base-button>
+                        <base-button outline type="primary" class="float-right mr-4" @click="onOpenConfig">{{ get_str('title.btn.open.config') }}</base-button>
                     </div>
                     <tabs fill class="flex-column flex-md-row">
                         <card shadow>
                             <tab-pane key="tab1">
                                 <span slot="title">
-                                    <i class="ni ni-user-run mr-2"></i>User Task
+                                    <i class="ni ni-user-run mr-2"></i>{{ get_str('title.task') }}
                                 </span>
 
                                 <div class="p-4">
@@ -22,9 +22,9 @@
                                         <div class="row mb-3 mt-4">
                                             <legend class="col-3"
                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                title="Run some commands before build">Prebuild Task</legend>
+                                            >{{ get_str('title.task.prebuild') }}</legend>
                                             <div class="col-1">
-                                                <base-button  size="sm" type="success" @click="add_prebuild_task">Add</base-button>
+                                                <base-button  size="sm" type="success" @click="add_prebuild_task">{{ get_str('title.btn.add') }}</base-button>
                                             </div>
                                         </div>
                                         <div class="pr-3 pl-3">
@@ -34,7 +34,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-2 col-form-label"
                                                         data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                        title="A readable name for display">Task Name</label>
+                                                        :title="get_str('prompt.task.name')">{{ get_str('title.task.name') }}</label>
                                                     <div class="col-5">
                                                     <base-input v-model="item.name"></base-input>
                                                     </div>
@@ -42,28 +42,33 @@
                                                 <div class="form-group row">
                                                     <label class="col-2 col-form-label"
                                                         data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                        title="Command line">Command</label>
+                                                        :title="get_str('prompt.task.command')">{{ get_str('title.task.command') }}</label>
                                                     <div class="col-10">
-                                                    <base-input v-model="item.command"></base-input>
+                                                        <textarea class="form-control form-control-alternative mt-2" 
+                                                            :style="style.textarea"
+                                                            :rows="get_rows_by_value(item.command)" 
+                                                            :placeholder="get_str('placeholder.task.command')"
+                                                            v-model="item.command">
+                                                        </textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <legend class="col-form-label col-2 float-left pt-0">Options</legend>
+                                                    <legend class="col-form-label col-2 float-left pt-0">{{ get_str('title.task.options') }}</legend>
                                                     <div class="col-6">
                                                         <base-checkbox class="mt-1 mb-3" v-model="item.disable" 
                                                             data-toggle="tooltip" :data-placement="location.tooltip.options"
-                                                            title="Disable this command">Disable</base-checkbox>
+                                                            :title="get_str('prompt.task.disable')">Disable</base-checkbox>
                                                         <base-checkbox class="mt-1 mb-3" v-model="item.abortAfterFailed" 
                                                             data-toggle="tooltip" :data-placement="location.tooltip.options" 
-                                                            title="Whether to skip subsequent commands if this command is failed">Abort If Failed</base-checkbox>
+                                                            :title="get_str('prompt.task.aif')">Abort If Failed</base-checkbox>
                                                         <base-checkbox class="mt-1 mb-3" v-model="item.stopBuildAfterFailed"
                                                             data-toggle="tooltip" :data-placement="location.tooltip.options" 
-                                                            title="Whether to stop building directly when this command is failed">Stop Build If Failed</base-checkbox>
+                                                            :title="get_str('prompt.task.sbif')">Stop Build If Failed</base-checkbox>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-12">
-                                                    <base-button class="float-right" size="sm" type="danger" @click="delete_prebuild_task(item)"> Delete</base-button>
+                                                    <base-button class="float-right" size="sm" type="danger" @click="delete_prebuild_task(item)">{{ get_str('title.btn.del') }}</base-button>
                                                     </div>
                                                 </div>
                                                 </form>
@@ -75,11 +80,10 @@
                                     <fieldset class="mt-4">
                                         <div class="row mb-3 mt-4">
                                             <legend class="col-3"
-                                                data-toggle="tooltip" :data-placement="location.tooltip.title" 
-                                                title="Run some commands after build"
-                                            >Post Build Task</legend>
+                                                data-toggle="tooltip" :data-placement="location.tooltip.title"
+                                            >{{ get_str('title.task.posbuild') }}</legend>
                                             <div class="col-1">
-                                                <base-button size="sm" type="success" @click="add_postbuild_task">Add</base-button>
+                                                <base-button size="sm" type="success" @click="add_postbuild_task">{{ get_str('title.btn.add') }}</base-button>
                                             </div>
                                         </div>
                                         <div class="pr-3 pl-3">
@@ -89,7 +93,7 @@
                                                         <div class="form-group row">
                                                             <label class="col-2 col-form-label"
                                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                                title="A readable name for display">Task Name</label>
+                                                                :title="get_str('prompt.task.name')">{{ get_str('title.task.name') }}</label>
                                                             <div class="col-5">
                                                             <base-input v-model="item.name"></base-input>
                                                             </div>
@@ -97,25 +101,30 @@
                                                         <div class="form-group row">
                                                             <label class="col-2 col-form-label"
                                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                                title="Command line">Command</label>
+                                                                :title="get_str('prompt.task.command')">{{ get_str('title.task.command') }}</label>
                                                             <div class="col-10">
-                                                            <base-input v-model="item.command"></base-input>
+                                                                <textarea class="form-control form-control-alternative mt-2" 
+                                                                    :style="style.textarea"
+                                                                    :rows="get_rows_by_value(item.command)" 
+                                                                    :placeholder="get_str('placeholder.task.command')"
+                                                                    v-model="item.command">
+                                                                </textarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <legend class="col-form-label col-2 float-left pt-0">Options</legend>
+                                                            <legend class="col-form-label col-2 float-left pt-0">{{ get_str('title.task.options') }}</legend>
                                                             <div class="col-6">
                                                                 <base-checkbox class="mt-1 mb-3" v-model="item.disable"
                                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
-                                                                    title="Disable this command">Disable</base-checkbox>
+                                                                    :title="get_str('prompt.task.disable')">Disable</base-checkbox>
                                                                 <base-checkbox class="mt-1 mb-3" v-model="item.abortAfterFailed"
                                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
-                                                                    title="Whether to skip subsequent commands if this command is failed">Abort If Failed</base-checkbox>
+                                                                    :title="get_str('prompt.task.aif')">Abort If Failed</base-checkbox>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="col-12">
-                                                            <base-button class="float-right" size="sm" type="danger" @click="delete_postbuild_task(item)"> Delete</base-button>
+                                                            <base-button class="float-right" size="sm" type="danger" @click="delete_postbuild_task(item)">{{ get_str('title.btn.del') }}</base-button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -129,7 +138,7 @@
 
                             <tab-pane key="tab2">
                                 <span slot="title">
-                                    <i class="ni ni-world mr-2"></i>Global
+                                    <i class="ni ni-world mr-2"></i>{{ get_str('title.global') }}
                                 </span>
 
                                 <div class="container">
@@ -196,7 +205,7 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ get_readable_name(item) }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
@@ -206,7 +215,7 @@
                                                             </div>
                                                             <base-button class="ml-4" size="sm" type="danger" 
                                                                 @click="delete_from_list(item.value, ele.value)"
-                                                            >Delete</base-button>
+                                                            >{{ get_str('title.btn.del') }}</base-button>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -218,8 +227,7 @@
 
                             <tab-pane key="tab3">
                                 <span slot="title">
-                                    <i class="ni ni-settings mr-2"></i>C/Cpp
-                                    Compiler
+                                    <i class="ni ni-settings mr-2"></i>{{ get_str('title.c/c++') }}
                                 </span>
 
                                 <div class="container">
@@ -286,7 +294,7 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ get_readable_name(item) }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
@@ -296,7 +304,7 @@
                                                             </div>
                                                             <base-button class="ml-4" size="sm" type="danger" 
                                                                 @click="delete_from_list(item.value, ele.value)"
-                                                            >Delete</base-button>
+                                                            >{{ get_str('title.btn.del') }}</base-button>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -308,7 +316,7 @@
 
                             <tab-pane key="tab4">
                                 <span slot="title">
-                                    <i class="ni ni-settings mr-2"></i>Assembler
+                                    <i class="ni ni-settings mr-2"></i>{{ get_str('title.asmber') }}
                                 </span>
 
                                 <div class="container">
@@ -375,7 +383,7 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ get_readable_name(item) }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
@@ -385,7 +393,7 @@
                                                             </div>
                                                             <base-button class="ml-4" size="sm" type="danger" 
                                                                 @click="delete_from_list(item.value, ele.value)"
-                                                            >Delete</base-button>
+                                                            >{{ get_str('title.btn.del') }}</base-button>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -397,7 +405,7 @@
 
                             <tab-pane key="tab5">
                                 <span slot="title">
-                                    <i class="ni ni-settings mr-2"></i>Linker
+                                    <i class="ni ni-settings mr-2"></i>{{ get_str('title.linker') }}
                                 </span>
 
                                 <div class="container">
@@ -464,7 +472,7 @@
                                                         :data-placement="location.tooltip.options" 
                                                         :title="item.description||''"
                                                     >{{ get_readable_name(item) }}</a>
-                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">Add</base-button>
+                                                    <base-button class="mt-2 float-right" size="sm" type="success" @click="add_to_list(item.value, '')">{{ get_str('title.btn.add') }}</base-button>
                                                 </div>
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
@@ -474,7 +482,7 @@
                                                             </div>
                                                             <base-button class="ml-4" size="sm" type="danger" 
                                                                 @click="delete_from_list(item.value, ele.value)"
-                                                            >Delete</base-button>
+                                                            >{{ get_str('title.btn.del') }}</base-button>
                                                         </div>
                                                     </li>
                                                 </ul>
@@ -594,6 +602,11 @@ input {
     border-radius: .25rem !important;
 }
 
+.list-group-item {
+    border: none !important;
+    border-color: var(--vscode-input-placeholderForeground) !important;
+}
+
 .form-control-alternative {
     color: var(--vscode-input-foreground) !important; /* set font color for input */
     background-color: var(--vscode-editor-background) !important;
@@ -664,6 +677,7 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 let _instance;
 
 export default {
+
     name: "App",
 
     components: {
@@ -678,7 +692,63 @@ export default {
     // data
     data() {
         return {
-            title: 'Builder Options',
+            lang: 'default',
+            strs: {
+                'default': {
+                    'title': 'Builder Options',
+
+                    'title.task': 'User Task',
+                    'title.global': 'Global',
+                    'title.c/c++': 'C/C++ Compiler',
+                    'title.asmber': 'Assembler',
+                    'title.linker': 'Linker',
+
+                    'title.task.prebuild': 'Prebuild Task',
+                    'title.task.posbuild': 'Post Build Task',
+                    'title.task.name': 'Task Name',
+                    'title.task.command': 'Command',
+                    'title.task.options': 'Options',
+                    
+                    'prompt.task.name': 'A Human-Readable Name',
+                    'prompt.task.command': 'Shell Command Line',
+                    'prompt.task.disable': 'Disable this command',
+                    'prompt.task.aif': 'Whether to skip subsequent commands if this command is failed',
+                    'prompt.task.sbif': 'Whether to stop building directly when this command is failed',
+                    'placeholder.task.command': 'Input shell commands',
+
+                    'title.btn.add': 'Add',
+                    'title.btn.del': 'Delete',
+                    'title.btn.save': 'Save All',
+                    'title.btn.open.config': 'Open Config',
+                },
+                'zh-cn': {
+                    'title': '构建器选项',
+
+                    'title.task': '用户任务',
+                    'title.global': '全局',
+                    'title.c/c++': 'C/C++ 编译器',
+                    'title.asmber': '汇编器',
+                    'title.linker': '链接器',
+                    
+                    'title.task.prebuild': '构建前任务',
+                    'title.task.posbuild': '构建后任务',
+                    'title.task.name': '任务名称',
+                    'title.task.command': '命令',
+                    'title.task.options': '选项',
+
+                    'prompt.task.name': '用于显示的只读名称',
+                    'prompt.task.command': 'Shell 命令行',
+                    'prompt.task.disable': '禁用该任务',
+                    'prompt.task.aif': '如果失败，则跳过后续命令',
+                    'prompt.task.sbif': '如果失败，则停止构建',
+                    'placeholder.task.command': '输入 Shell 命令行',
+
+                    'title.btn.add': '添加',
+                    'title.btn.del': '删除',
+                    'title.btn.save': '保存所有',
+                    'title.btn.open.config': '打开配置',
+                }
+            },
             style: {
                 textarea: 'font-family: Consolas'
             },
@@ -722,9 +792,14 @@ export default {
 
     // global methods
     methods: {
+
         // interface
         getInstance: function () {
             return _instance
+        },
+
+        forceUpdate: function() {
+            this.$forceUpdate()
         },
 
         // event
@@ -734,6 +809,16 @@ export default {
 
         onOpenConfig: function () {
             _instance.$emit('open-config')
+        },
+
+        // resource
+        get_str: function(label) {
+
+            if (this.strs[this.lang] && this.strs[this.lang][label] !== undefined) { 
+                return this.strs[this.lang][label]; 
+            }
+
+            return this.strs['default'][label] || label;
         },
 
         // operations
@@ -746,6 +831,7 @@ export default {
                 command: 'echo "test"',
             });
         },
+
         delete_prebuild_task: function (item) {
 
             const index = this.task.before.findIndex((ele) => {
@@ -756,6 +842,7 @@ export default {
                 this.task.before.splice(index, 1);
             }
         },
+
         add_postbuild_task: function () {
             this.task.after.push({
                 name: "new_postbuild_task",
@@ -764,6 +851,7 @@ export default {
                 command: 'echo "test"',
             });
         },
+
         delete_postbuild_task: function (item) {
 
             const index = this.task.after.findIndex((ele) => {
@@ -833,4 +921,5 @@ export default {
 $(function () { $('[data-toggle="popover"]').popover() });
 // eslint-disable-next-line no-undef
 $(function () { $('[data-toggle="tooltip"]').tooltip() });
+
 </script>

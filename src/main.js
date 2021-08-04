@@ -4,13 +4,12 @@ import Argon from './plugins/argon-kit'
 
 // ====== Init ======
 
+/* config */
 Vue.config.productionTip = false
-
-/* enable components */
 Vue.use(Argon)
 
+/* create and init page */
 new Vue({ render: h => h(App) }).$mount('#app')
-
 const vueInstance = App.methods.getInstance()
 
 // ====== App entry =======
@@ -43,9 +42,17 @@ window.addEventListener('message', event => {
     else {
         model_obj = event.data.model;
         data_obj = event.data.data;
-        initAll(model_obj, data_obj);
+        initAll(model_obj, data_obj, event.data.info);
     }
 })
+
+// add ctrl+s event callbk
+document.addEventListener('keydown', function (e) {
+    if (e.key.toLowerCase() == 's' && e.ctrlKey) {
+        e.preventDefault();
+        saveAll();
+    }
+});
 
 // ====== functions ======
 
@@ -180,10 +187,16 @@ function setFieldValue(field_info, field, data) {
 
     // set description
     field.description = field_info.markdownDescription || field_info.description
+    if (lang && field_info[`description.${lang}`]) {
+        field.description = field_info[`description.${lang}`];
+    }
 
     // other
     field.disable_readable_name = field_info.disable_readable_name
     field.readable_name = field_info.readable_name
+    if (lang && field_info[`readable_name.${lang}`]) {
+        field.readable_name = field_info[`readable_name.${lang}`];
+    }
 
     // set type
     switch (type) {
@@ -248,7 +261,9 @@ function setFieldValue(field_info, field, data) {
     return true;
 }
 
-function initAll(model, data) {
+let lang = undefined; /* language */
+
+function initAll(model, data, info) {
 
     console.log('[builder options view] start init page ...')
 
@@ -260,6 +275,12 @@ function initAll(model, data) {
         'cpp': 'c/cpp-compiler',
         'asm': 'asm-compiler',
         'linker': 'linker'
+    }
+
+    // init info
+    if (info) {
+        lang = info.lang;
+        vueInstance.lang = lang;
     }
 
     for (const prop_name in props_map) {
