@@ -578,7 +578,7 @@ section {
 }
 
 .card-body {
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: 0 5px 15px var(--vscode-input-background);
 }
 
