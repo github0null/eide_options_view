@@ -54,6 +54,9 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
+/* launch done, notify to vscode */
+vscode.postMessage('eide.options_view.launched')
+
 // ====== functions ======
 
 function showToast(data) {
