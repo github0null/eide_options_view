@@ -166,7 +166,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-2"
+                                                <el-select class="col-3"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -176,7 +176,7 @@
                                                     </el-option>
                                                 </el-select>
                                                 <a 
-                                                    class="col-10 col-form-label"
+                                                    class="col-8 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
@@ -265,7 +265,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-2"
+                                                <el-select class="col-3"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -275,7 +275,7 @@
                                                     </el-option>
                                                 </el-select>
                                                 <a 
-                                                    class="col-10 col-form-label"
+                                                    class="col-8 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
@@ -358,7 +358,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-2"
+                                                <el-select class="col-3"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -368,7 +368,7 @@
                                                     </el-option>
                                                 </el-select>
                                                 <a 
-                                                    class="col-10 col-form-label"
+                                                    class="col-8 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
@@ -451,7 +451,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-2"
+                                                <el-select class="col-3"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -461,7 +461,7 @@
                                                     </el-option>
                                                 </el-select>
                                                 <a 
-                                                    class="col-10 col-form-label"
+                                                    class="col-8 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
@@ -653,12 +653,16 @@ el-input {
 .el-scrollbar__view,
 .el-select-dropdown__list,
 .el-select-dropdown__item {
-    color: var(--vscode-editor-foreground) !important;
+    color: var(--vscode-input-foreground) !important;
     background-color: var(--vscode-editor-background) !important;
 }
 
 .el-select-dropdown__item {
     height: 32px !important;
+}
+
+.el-select-dropdown__item.selected {
+    color: var(--vscode-editor-foreground) !important;
 }
 
 .el-select-dropdown {
