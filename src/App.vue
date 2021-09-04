@@ -37,7 +37,7 @@
                                                         data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                         :title="get_str('prompt.task.name')">{{ get_str('title.task.name') }}</label>
                                                     <div class="col-5">
-                                                    <base-input v-model="item.name"></base-input>
+                                                    <el-input v-model="item.name"></el-input>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -104,7 +104,7 @@
                                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                                 :title="get_str('prompt.task.name')">{{ get_str('title.task.name') }}</label>
                                                             <div class="col-5">
-                                                            <base-input v-model="item.name"></base-input>
+                                                            <el-input v-model="item.name"></el-input>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
@@ -166,12 +166,14 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <select class="col-2 custom-select custom-select-sm" 
+                                                <el-select class="col-2" 
                                                     v-model="item.value">
-                                                    <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
-                                                        {{enum_item}}
-                                                    </option>
-                                                </select>
+                                                    <el-option v-for="(enum_item, enum_index) in item.enums" 
+                                                        :key="enum_index" 
+                                                        :label="item.enumDesc[enum_index] || enum_item"
+                                                        :value="enum_item">
+                                                    </el-option>
+                                                </el-select>
                                                 <a 
                                                     class="col-10 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
@@ -184,19 +186,19 @@
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</label>
                                                 <div class="col-5">
-                                                    <base-input 
+                                                    <el-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
-                                                    </base-input>
+                                                    </el-input>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
-                                                <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
+                                                <el-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
-                                                </base-input>
+                                                </el-input>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
@@ -280,19 +282,19 @@
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</label>
                                                 <div class="col-5">
-                                                    <base-input 
+                                                    <el-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
-                                                    </base-input>
+                                                    </el-input>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
-                                                <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
+                                                <el-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
-                                                </base-input>
+                                                </el-input>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
@@ -370,19 +372,19 @@
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</label>
                                                 <div class="col-5">
-                                                    <base-input 
+                                                    <el-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
-                                                    </base-input>
+                                                    </el-input>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
-                                                <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
+                                                <el-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
-                                                </base-input>
+                                                </el-input>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
@@ -460,19 +462,19 @@
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</label>
                                                 <div class="col-5">
-                                                    <base-input 
+                                                    <el-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
-                                                    </base-input>
+                                                    </el-input>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
-                                                <base-input class="mt-2" :placeholder="item.placeHolder || ''" 
+                                                <el-input class="mt-2" :placeholder="item.placeHolder || ''" 
                                                     v-model="item.value">
-                                                </base-input>
+                                                </el-input>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'textarea'">
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
@@ -606,28 +608,26 @@ section {
     border: 1px solid var(--vscode-button-background) !important;
 }
 
-base-input {
-    color: var(--vscode-input-foreground) !important; /* set font color for input */
-    background-color: var(--vscode-editor-background) !important;
-    font-family: Consolas !important;
-    border: 1px solid var(--vscode-input-placeholderForeground) !important;
-    border-radius: .25rem !important;
-}
-
+/* set common style for input */
 input,
+el-input,
 textarea {
-    color: var(--vscode-input-foreground) !important; /* set font color for input */
+    color: var(--vscode-input-foreground) !important;
     background-color: var(--vscode-editor-background) !important;
     font-family: Consolas !important;
     border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
-}
-
-textarea {
     padding: .625rem .75rem !important;
 }
 
-textarea::-webkit-input-placeholder {
+el-input {
+    height: 43px !important; /* make text height equal with textarea */
+}
+
+/* set foreground color for input placaholder */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+.form-control::-webkit-input-placeholder {
     color: var(--vscode-input-placeholderForeground) !important;
 }
 
@@ -646,10 +646,6 @@ textarea::-webkit-input-placeholder {
 .form-control {
     border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
-}
-
-.form-control::-webkit-input-placeholder {
-    color: var(--vscode-input-placeholderForeground) !important;
 }
 
 select,
@@ -680,7 +676,7 @@ select:focus,
     border-radius: .25rem !important;
 }
 
-base-input:focus,
+el-input:focus,
 input:focus,
 textarea:focus,
 .form-control:focus,
@@ -697,7 +693,6 @@ textarea:focus,
 import Tabs from "@/components/Tabs/Tabs.vue";
 import TabPane from "@/components/Tabs/TabPane.vue";
 import BaseButton from "@/components/BaseButton.vue";
-import BaseInput from "@/components/BaseInput.vue";
 import Card from "@/components/Card.vue";
 import Modal from "@/components/Modal.vue";
 
@@ -714,7 +709,6 @@ export default {
         Tabs,
         TabPane,
         BaseButton,
-        BaseInput,
         Card,
         Modal
     },
