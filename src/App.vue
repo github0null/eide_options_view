@@ -166,7 +166,8 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-2" 
+                                                <el-select class="col-2"
+                                                    size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
                                                         :key="enum_index" 
@@ -264,12 +265,15 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <select class="col-2 custom-select custom-select-sm" 
+                                                <el-select class="col-2"
+                                                    size="small" 
                                                     v-model="item.value">
-                                                    <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
-                                                        {{enum_item}}
-                                                    </option>
-                                                </select>
+                                                    <el-option v-for="(enum_item, enum_index) in item.enums" 
+                                                        :key="enum_index" 
+                                                        :label="item.enumDesc[enum_index] || enum_item"
+                                                        :value="enum_item">
+                                                    </el-option>
+                                                </el-select>
                                                 <a 
                                                     class="col-10 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
@@ -354,12 +358,15 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <select class="col-2 custom-select custom-select-sm" 
+                                                <el-select class="col-2"
+                                                    size="small" 
                                                     v-model="item.value">
-                                                    <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
-                                                        {{enum_item}}
-                                                    </option>
-                                                </select>
+                                                    <el-option v-for="(enum_item, enum_index) in item.enums" 
+                                                        :key="enum_index" 
+                                                        :label="item.enumDesc[enum_index] || enum_item"
+                                                        :value="enum_item">
+                                                    </el-option>
+                                                </el-select>
                                                 <a 
                                                     class="col-10 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
@@ -444,12 +451,15 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <select class="col-2 custom-select custom-select-sm" 
+                                                <el-select class="col-2"
+                                                    size="small" 
                                                     v-model="item.value">
-                                                    <option v-for="(enum_item, enum_index) in item.enums" :key="enum_index" :value="enum_item">
-                                                        {{enum_item}}
-                                                    </option>
-                                                </select>
+                                                    <el-option v-for="(enum_item, enum_index) in item.enums" 
+                                                        :key="enum_index" 
+                                                        :label="item.enumDesc[enum_index] || enum_item"
+                                                        :value="enum_item">
+                                                    </el-option>
+                                                </el-select>
                                                 <a 
                                                     class="col-10 col-form-label"
                                                     data-toggle="tooltip" :data-placement="location.tooltip.options" 
@@ -586,7 +596,7 @@ section {
 .card,
 .card-body,
 .list-group-item,
-.custom-select,
+el-select,
 .custom-form {
     color: var(--vscode-editor-foreground) !important;
     background-color: var(--vscode-editor-background) !important;
@@ -608,6 +618,7 @@ section {
     border: 1px solid var(--vscode-button-background) !important;
 }
 
+
 /* set common style for input */
 input,
 el-input,
@@ -619,9 +630,57 @@ textarea {
     border-radius: .25rem !important;
     padding: .625rem .75rem !important;
 }
-
 el-input {
     height: 43px !important; /* make text height equal with textarea */
+}
+
+
+/* el select container style */
+
+.el-select {
+    padding: 0px !important;
+}
+
+.el-input__inner {
+    padding-left: 15px !important;
+    padding-right: 32px !important; /* make arrow normal */
+}
+
+.el-scrollbar,
+.el-select-dropdown,
+.el-select-dropdown__wrap,
+.el-scrollbar__wrap,
+.el-scrollbar__view,
+.el-select-dropdown__list,
+.el-select-dropdown__item {
+    color: var(--vscode-editor-foreground) !important;
+    background-color: var(--vscode-editor-background) !important;
+}
+
+.el-select-dropdown__item {
+    height: 32px !important;
+}
+
+.el-select-dropdown {
+    padding: 2px 0px !important;
+    border: 1px solid var(--vscode-input-placeholderForeground) !important;
+    border-radius: .25rem !important;
+    box-shadow: 0 1px 3px var(--vscode-focusBorder) !important;
+}
+
+.el-popper[x-placement^=top],
+.popper__arrow,
+.popper__arrow:after {
+    border-top-color: var(--vscode-input-placeholderForeground) !important;
+}
+.el-popper[x-placement^=bottom],
+.popper__arrow,
+.popper__arrow:after {
+    border-bottom-color: var(--vscode-input-placeholderForeground) !important;
+}
+
+.el-select-dropdown__item:hover {
+    background-color: var(--vscode-inputOption-activeBackground) !important;
 }
 
 /* set foreground color for input placaholder */
@@ -649,7 +708,7 @@ textarea::-webkit-input-placeholder,
 }
 
 select,
-.custom-select {
+el-select {
     border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
 }
@@ -666,12 +725,12 @@ select,
 a:focus,
 input:focus,
 select:focus,
-.custom-select:focus {
+el-select:focus {
     outline: none !important; /* remove outline when get focus */
 }
 
 select:focus,
-.custom-select:focus {
+el-select:focus {
     border: 1px solid var(--vscode-focusBorder) !important;
     border-radius: .25rem !important;
 }
