@@ -217,10 +217,7 @@ function setFieldValue(field_info, field, data) {
             if (field_info['enum']) {
                 field.type = 'enum'
                 field.enums = field_info['enum']
-                // set enumDesc
-                if (field_info['enumDescriptions']) {
-                    field.enumDesc = field_info['enumDescriptions']
-                }
+                field.enumDesc = field_info['enumDescriptions'] || []
             } else {
                 field.type = 'input'
                 field.placeHolder = field.description
