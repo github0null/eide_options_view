@@ -45,12 +45,19 @@
                                                         data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                         :title="get_str('prompt.task.command')">{{ get_str('title.task.command') }}</label>
                                                     <div class="col-10">
-                                                        <textarea class="form-control form-control-alternative mt-2" 
+                                                        <!--textarea class="form-control form-control-alternative mt-2" 
                                                             :style="style.textarea"
                                                             :rows="get_rows_by_value(item.command)" 
                                                             :placeholder="get_str('placeholder.task.command')"
                                                             v-model="item.command">
-                                                        </textarea>
+                                                        </textarea-->
+                                                        <el-input
+                                                            class="mt-2"
+                                                            type="textarea"
+                                                            autosize
+                                                            :placeholder="get_str('placeholder.task.command')"
+                                                            v-model="item.command">
+                                                        </el-input>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -105,12 +112,13 @@
                                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                                 :title="get_str('prompt.task.command')">{{ get_str('title.task.command') }}</label>
                                                             <div class="col-10">
-                                                                <textarea class="form-control form-control-alternative mt-2" 
-                                                                    :style="style.textarea"
-                                                                    :rows="get_rows_by_value(item.command)" 
+                                                                <el-input
+                                                                    class="mt-2"
+                                                                    type="textarea"
+                                                                    autosize
                                                                     :placeholder="get_str('placeholder.task.command')"
                                                                     v-model="item.command">
-                                                                </textarea>
+                                                                </el-input>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
@@ -194,12 +202,19 @@
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
-                                                <textarea class="form-control form-control-alternative mt-2" 
+                                                <!--textarea class="form-control form-control-alternative mt-2" 
                                                     :style="style.textarea"
                                                     :rows="get_rows_by_value(item.value)" 
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
-                                                </textarea>
+                                                </textarea-->
+                                                <el-input
+                                                    class="mt-2"
+                                                    type="textarea"
+                                                    autosize
+                                                    :placeholder="item.placeHolder || ''"
+                                                    v-model="item.value">
+                                                </el-input>
                                             </div>
                                             <div class="mb-2" v-else-if="item.type == 'array'">
                                                 <div class="form-inline mb-2 mt-2">
@@ -283,12 +298,13 @@
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
-                                                <textarea class="form-control form-control-alternative mt-2" 
-                                                    :style="style.textarea"
-                                                    :rows="get_rows_by_value(item.value)" 
+                                                <el-input
+                                                    class="mt-2"
+                                                    type="textarea"
+                                                    autosize
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
-                                                </textarea>
+                                                </el-input>
                                             </div>
                                             <div class="mb-2" v-else-if="item.type == 'array'">
                                                 <div class="form-inline mb-2 mt-2">
@@ -372,12 +388,13 @@
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
-                                                <textarea class="form-control form-control-alternative mt-2" 
-                                                    :style="style.textarea"
-                                                    :rows="get_rows_by_value(item.value)" 
+                                                <el-input
+                                                    class="mt-2"
+                                                    type="textarea"
+                                                    autosize
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
-                                                </textarea>
+                                                </el-input>
                                             </div>
                                             <div class="mb-2" v-else-if="item.type == 'array'">
                                                 <div class="form-inline mb-2 mt-2">
@@ -461,12 +478,13 @@
                                                 <a data-toggle="tooltip" :data-placement="location.tooltip.title" 
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</a>
-                                                <textarea class="form-control form-control-alternative mt-2" 
-                                                    :style="style.textarea"
-                                                    :rows="get_rows_by_value(item.value)" 
+                                                <el-input
+                                                    class="mt-2"
+                                                    type="textarea"
+                                                    autosize
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
-                                                </textarea>
+                                                </el-input>
                                             </div>
                                             <div class="mb-2" v-else-if="item.type == 'array'">
                                                 <div class="form-inline mb-2 mt-2">
@@ -596,12 +614,21 @@ base-input {
     border-radius: .25rem !important;
 }
 
-input {
+input,
+textarea {
     color: var(--vscode-input-foreground) !important; /* set font color for input */
     background-color: var(--vscode-editor-background) !important;
     font-family: Consolas !important;
     border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
+}
+
+textarea {
+    padding: .625rem .75rem !important;
+}
+
+textarea::-webkit-input-placeholder {
+    color: var(--vscode-input-placeholderForeground) !important;
 }
 
 .list-group-item {
@@ -655,6 +682,7 @@ select:focus,
 
 base-input:focus,
 input:focus,
+textarea:focus,
 .form-control:focus,
 .form-control-alternative:focus {
     border: 1px solid var(--vscode-focusBorder) !important;
@@ -710,15 +738,24 @@ export default {
                     'title.task.name': 'Task Name',
                     'title.task.command': 'Command',
                     'title.task.options': 'Options',
-                    
+
                     'prompt.task.prebuild': 'Run some shell task before build',
                     'prompt.task.posbuild': 'Run some shell task after build done',
                     'prompt.task.name': 'A Human-Readable Name',
-                    'prompt.task.command': 'Shell Command Line',
+                    'prompt.task.command': 'Shell Command',
                     'prompt.task.disable': 'Disable this command',
                     'prompt.task.aif': 'Whether to skip subsequent commands if this command is failed',
                     'prompt.task.sbif': 'Whether to stop building directly when this command is failed',
+
                     'placeholder.task.command': 'Input shell commands',
+
+                    "desc.task.cmd.env.target_name": "Project name",
+                    "desc.task.cmd.env.project_root": "Project root folder",
+                    "desc.task.cmd.env.output_dir": "Build output folder",
+                    "desc.task.cmd.env.builer_folder": "Builder executable file's folder",
+                    "desc.task.cmd.env.toolchain_root": "Toolchain root folder",
+                    "desc.task.cmd.env.compiler_prefix": "Compiler prefix, like: arm-none-eabi-",
+                    "desc.task.cmd.env.compiler_folder": "Compiler executable file's folder",
 
                     'title.btn.add': 'Add',
                     'title.btn.del': 'Delete',
@@ -733,7 +770,7 @@ export default {
                     'title.c/c++': 'C/C++ 编译器',
                     'title.asmber': '汇编器',
                     'title.linker': '链接器',
-                    
+
                     'title.task.prebuild': '构建前任务',
                     'title.task.posbuild': '构建后任务',
                     'title.task.name': '任务名称',
@@ -748,6 +785,14 @@ export default {
                     'prompt.task.aif': '如果失败，则跳过后续命令',
                     'prompt.task.sbif': '如果失败，则停止构建',
                     'placeholder.task.command': '输入 Shell 命令行',
+
+                    "desc.task.cmd.env.target_name": "项目名称",
+                    "desc.task.cmd.env.project_root": "项目根目录",
+                    "desc.task.cmd.env.output_dir": "编译输出目录",
+                    "desc.task.cmd.env.builer_folder": "构建器可执行文件目录",
+                    "desc.task.cmd.env.toolchain_root": "工具链根目录",
+                    "desc.task.cmd.env.compiler_prefix": "编译器前缀，例如：arm-none-eabi-",
+                    "desc.task.cmd.env.compiler_folder": "编译器可执行文件目录",
 
                     'title.btn.add': '添加',
                     'title.btn.del': '删除',
@@ -804,7 +849,7 @@ export default {
             return _instance
         },
 
-        forceUpdate: function() {
+        forceUpdate: function () {
             this.$forceUpdate()
         },
 
@@ -817,11 +862,19 @@ export default {
             _instance.$emit('open-config')
         },
 
-        // resource
-        get_str: function(label) {
+        notify: function (options) {
+            _instance.$notify(options)
+        },
 
-            if (this.strs[this.lang] && this.strs[this.lang][label] !== undefined) { 
-                return this.strs[this.lang][label]; 
+        message: function (options) {
+            _instance.$message(options)
+        },
+
+        // resource
+        get_str: function (label) {
+
+            if (this.strs[this.lang] && this.strs[this.lang][label] !== undefined) {
+                return this.strs[this.lang][label];
             }
 
             return this.strs['default'][label] || label;

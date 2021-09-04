@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Argon from './plugins/argon-kit'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 // ====== Init ======
 
 /* config */
 Vue.config.productionTip = false
 Vue.use(Argon)
+Vue.use(ElementUI)
 
 /* create and init page */
 new Vue({ render: h => h(App) }).$mount('#app')
@@ -61,17 +64,18 @@ vscode.postMessage('eide.options_view.launched')
 
 function showToast(data) {
 
-    const title = data.success ? 'Success' : 'Failed'
-
-    // eslint-disable-next-line no-undef
-    bootoast.toast({
-        message: `<strong>${title}</strong><p class="mt-2">${data.msg}</p>`,
-        type: data.success ? 'success' : 'danger',
-        position: 'right-bottom',
-        timeout: 3,
-        animationDuration: 300,
-        dismissible: true
+    App.methods.notify({
+        type: data.success ? 'success' : 'error',
+        title: data.success ? 'Success' : 'Failed',
+        message: data.msg,
+        position: 'bottom-right'
     });
+
+    /* App.methods.message({
+        type: data.success ? 'success' : 'error',
+        message: data.msg,
+        showClose: true
+    }); */
 }
 
 function saveAll() {
