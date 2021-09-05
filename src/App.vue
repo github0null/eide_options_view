@@ -830,7 +830,7 @@ let appData = {
             'title': 'Builder Options',
 
             'title.task': 'User Task',
-            'title.global': 'Global',
+            'title.global': 'Global Options',
             'title.c/c++': 'C/C++ Compiler',
             'title.asmber': 'Assembler',
             'title.linker': 'Linker',
@@ -863,7 +863,7 @@ let appData = {
             'title': '构建器选项',
 
             'title.task': '用户任务',
-            'title.global': '全局',
+            'title.global': '全局选项',
             'title.c/c++': 'C/C++ 编译器',
             'title.asmber': '汇编器',
             'title.linker': '链接器',
