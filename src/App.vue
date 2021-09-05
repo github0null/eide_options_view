@@ -54,7 +54,7 @@
                                                         <el-input
                                                             class="mt-2"
                                                             type="textarea"
-                                                            autosize
+                                                            :autosize="textarea.autosize"
                                                             :placeholder="get_str('placeholder.task.command')"
                                                             v-model="item.command">
                                                         </el-input>
@@ -134,7 +134,7 @@
                                                                 <el-input
                                                                     class="mt-2"
                                                                     type="textarea"
-                                                                    autosize
+                                                                    :autosize="textarea.autosize"
                                                                     :placeholder="get_str('placeholder.task.command')"
                                                                     v-model="item.command">
                                                                 </el-input>
@@ -204,7 +204,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-3"
+                                                <el-select class="col-2"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -252,7 +252,7 @@
                                                 <el-input
                                                     class="mt-2"
                                                     type="textarea"
-                                                    autosize
+                                                    :autosize="textarea.autosize"
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
                                                 </el-input>
@@ -303,7 +303,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-3"
+                                                <el-select class="col-2"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -345,7 +345,7 @@
                                                 <el-input
                                                     class="mt-2"
                                                     type="textarea"
-                                                    autosize
+                                                    :autosize="textarea.autosize"
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
                                                 </el-input>
@@ -396,7 +396,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-3"
+                                                <el-select class="col-2"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -438,7 +438,7 @@
                                                 <el-input
                                                     class="mt-2"
                                                     type="textarea"
-                                                    autosize
+                                                    :autosize="textarea.autosize"
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
                                                 </el-input>
@@ -489,7 +489,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-3"
+                                                <el-select class="col-2"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -531,7 +531,7 @@
                                                 <el-input
                                                     class="mt-2"
                                                     type="textarea"
-                                                    autosize
+                                                    :autosize="textarea.autosize"
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
                                                 </el-input>
@@ -634,7 +634,6 @@ section {
 .card,
 .card-body,
 .list-group-item,
-el-select,
 .custom-form {
     color: var(--vscode-editor-foreground) !important;
     background-color: var(--vscode-editor-background) !important;
@@ -682,7 +681,6 @@ tr.el-table__cell {
 
 /* set common style for input */
 input,
-el-input,
 textarea {
     color: var(--vscode-input-foreground) !important;
     background-color: var(--vscode-editor-background) !important;
@@ -691,10 +689,6 @@ textarea {
     border-radius: .25rem !important;
     padding: .625rem .75rem !important;
 }
-el-input {
-    height: 43px !important; /* make text height equal with textarea */
-}
-
 
 /* el select container style */
 
@@ -702,7 +696,7 @@ el-input {
     padding: 0px !important;
 }
 
-.el-input__inner {
+.el-select .el-input__inner {
     padding-left: 15px !important;
     padding-right: 32px !important; /* make arrow normal */
 }
@@ -779,8 +773,7 @@ textarea::-webkit-input-placeholder,
     border-radius: .25rem !important;
 }
 
-select,
-el-select {
+select {
     border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
 }
@@ -796,18 +789,15 @@ el-select {
 
 a:focus,
 input:focus,
-select:focus,
-el-select:focus {
+select:focus {
     outline: none !important; /* remove outline when get focus */
 }
 
-select:focus,
-el-select:focus {
+select:focus {
     border: 1px solid var(--vscode-focusBorder) !important;
     border-radius: .25rem !important;
 }
 
-el-input:focus,
 input:focus,
 textarea:focus,
 .form-control:focus,
@@ -832,6 +822,106 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 
 let _instance;
 
+/* init data */
+let appData = {
+    lang: 'default',
+    strs: {
+        'default': {
+            'title': 'Builder Options',
+
+            'title.task': 'User Task',
+            'title.global': 'Global',
+            'title.c/c++': 'C/C++ Compiler',
+            'title.asmber': 'Assembler',
+            'title.linker': 'Linker',
+
+            'title.task.prebuild': 'Prebuild Task',
+            'title.task.posbuild': 'Post Build Task',
+            'title.task.name': 'Task Name',
+            'title.task.command': 'Command',
+            'title.task.options': 'Options',
+            'title.task.env.name': 'Variable Name',
+            'title.task.env.desc': 'Description/Value',
+
+            'prompt.task.prebuild': 'Run some shell task before build',
+            'prompt.task.posbuild': 'Run some shell task after build done',
+            'prompt.task.name': 'A Human-Readable Name',
+            'prompt.task.command': 'Shell Command',
+            'prompt.task.disable': 'Disable this command',
+            'prompt.task.aif': 'Whether to skip subsequent commands if this command is failed',
+            'prompt.task.sbif': 'Whether to stop building directly when this command is failed',
+
+            'placeholder.task.command': 'Input shell commands',
+
+            'title.btn.add': 'Add',
+            'title.btn.del': 'Delete',
+            'title.btn.save': 'Save All',
+            'title.btn.open.config': 'Open Config',
+            'title.btn.variables': 'Variables'
+        },
+        'zh-cn': {
+            'title': '构建器选项',
+
+            'title.task': '用户任务',
+            'title.global': '全局',
+            'title.c/c++': 'C/C++ 编译器',
+            'title.asmber': '汇编器',
+            'title.linker': '链接器',
+
+            'title.task.prebuild': '构建前任务',
+            'title.task.posbuild': '构建后任务',
+            'title.task.name': '任务名称',
+            'title.task.command': '命令',
+            'title.task.options': '选项',
+            'title.task.env.name': '变量名',
+            'title.task.env.desc': '描述/值',
+
+            'prompt.task.prebuild': '指定一些任务，将在构建开始前运行',
+            'prompt.task.posbuild': '指定一些任务，将在构建完成后运行',
+            'prompt.task.name': '用于显示的只读名称',
+            'prompt.task.command': 'Shell 命令行',
+            'prompt.task.disable': '禁用该任务',
+            'prompt.task.aif': '如果失败，则跳过后续命令',
+            'prompt.task.sbif': '如果失败，则停止构建',
+            'placeholder.task.command': '输入 Shell 命令行',
+
+            'title.btn.add': '添加',
+            'title.btn.del': '删除',
+            'title.btn.save': '全部保存',
+            'title.btn.open.config': '打开配置',
+            'title.btn.variables': '变量'
+        }
+    },
+    style: {
+        textarea: 'font-family: Consolas',
+        input: 'min-height: 43px; height: 43px;'
+    },
+    textarea: {
+        autosize: { minRows: 2 }
+    },
+    dialog: {
+        title: '',
+        msg: '',
+        visible: false,
+        theme: 'success'
+    },
+    location: {
+        tooltip: {
+            title: 'top',
+            options: 'right'
+        }
+    },
+    prjEnvList: [],
+    task: {
+        before: [],
+        after: [],
+    },
+    global: [],
+    cpp: [],
+    asm: [],
+    linker: [],
+};
+
 export default {
 
     name: "App",
@@ -846,100 +936,7 @@ export default {
 
     // data
     data() {
-        return {
-            lang: 'default',
-            strs: {
-                'default': {
-                    'title': 'Builder Options',
-
-                    'title.task': 'User Task',
-                    'title.global': 'Global',
-                    'title.c/c++': 'C/C++ Compiler',
-                    'title.asmber': 'Assembler',
-                    'title.linker': 'Linker',
-
-                    'title.task.prebuild': 'Prebuild Task',
-                    'title.task.posbuild': 'Post Build Task',
-                    'title.task.name': 'Task Name',
-                    'title.task.command': 'Command',
-                    'title.task.options': 'Options',
-                    'title.task.env.name': 'Variable Name',
-                    'title.task.env.desc': 'Description',
-
-                    'prompt.task.prebuild': 'Run some shell task before build',
-                    'prompt.task.posbuild': 'Run some shell task after build done',
-                    'prompt.task.name': 'A Human-Readable Name',
-                    'prompt.task.command': 'Shell Command',
-                    'prompt.task.disable': 'Disable this command',
-                    'prompt.task.aif': 'Whether to skip subsequent commands if this command is failed',
-                    'prompt.task.sbif': 'Whether to stop building directly when this command is failed',
-
-                    'placeholder.task.command': 'Input shell commands',
-
-                    'title.btn.add': 'Add',
-                    'title.btn.del': 'Delete',
-                    'title.btn.save': 'Save All',
-                    'title.btn.open.config': 'Open Config',
-                    'title.btn.variables': 'Variables'
-                },
-                'zh-cn': {
-                    'title': '构建器选项',
-
-                    'title.task': '用户任务',
-                    'title.global': '全局',
-                    'title.c/c++': 'C/C++ 编译器',
-                    'title.asmber': '汇编器',
-                    'title.linker': '链接器',
-
-                    'title.task.prebuild': '构建前任务',
-                    'title.task.posbuild': '构建后任务',
-                    'title.task.name': '任务名称',
-                    'title.task.command': '命令',
-                    'title.task.options': '选项',
-                    'title.task.env.name': '变量名',
-                    'title.task.env.desc': '描述',
-
-                    'prompt.task.prebuild': '指定一些任务，将在构建开始前运行',
-                    'prompt.task.posbuild': '指定一些任务，将在构建完成后运行',
-                    'prompt.task.name': '用于显示的只读名称',
-                    'prompt.task.command': 'Shell 命令行',
-                    'prompt.task.disable': '禁用该任务',
-                    'prompt.task.aif': '如果失败，则跳过后续命令',
-                    'prompt.task.sbif': '如果失败，则停止构建',
-                    'placeholder.task.command': '输入 Shell 命令行',
-
-                    'title.btn.add': '添加',
-                    'title.btn.del': '删除',
-                    'title.btn.save': '全部保存',
-                    'title.btn.open.config': '打开配置',
-                    'title.btn.variables': '变量'
-                }
-            },
-            style: {
-                textarea: 'font-family: Consolas'
-            },
-            dialog: {
-                title: '',
-                msg: '',
-                visible: false,
-                theme: 'success'
-            },
-            location: {
-                tooltip: {
-                    title: 'top',
-                    options: 'right'
-                }
-            },
-            prjEnvList: [],
-            task: {
-                before: [],
-                after: [],
-            },
-            global: [],
-            cpp: [],
-            asm: [],
-            linker: [],
-        };
+        return appData
     },
 
     // mount object
@@ -1003,7 +1000,7 @@ export default {
                 disable: false,
                 abortAfterFailed: false,
                 stopBuildAfterFailed: true,
-                command: 'echo "test"',
+                command: 'echo "projet name: ${TargetName}"',
             });
         },
 

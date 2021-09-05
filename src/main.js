@@ -11,21 +11,15 @@ Vue.config.productionTip = false
 Vue.use(Argon)
 Vue.use(ElementUI)
 
-/* create and init page */
-new Vue({ render: h => h(App) }).$mount('#app')
-const vueInstance = App.methods.getInstance()
-
 // ====== App entry =======
 
-let model_obj
-let data_obj
+let appInstance = undefined
+let data_obj = undefined
+let inited = false
+let appData = App.data()
 
 // eslint-disable-next-line no-undef
 const vscode = acquireVsCodeApi();
-
-// receive event
-vueInstance.$on('save-all', () => saveAll())
-vueInstance.$on('open-config', () => vscode.postMessage('open-config'))
 
 // receive vscode event
 window.addEventListener('message', event => {
@@ -43,9 +37,9 @@ window.addEventListener('message', event => {
 
     // is a data
     else {
-        model_obj = event.data.model;
         data_obj = event.data.data;
-        initAll(model_obj, data_obj, event.data.info);
+        initAll(event.data.model, data_obj, event.data.info); /* init app data */
+        initApp() /* init vue app if we have not do it ! */
     }
 })
 
@@ -61,6 +55,17 @@ document.addEventListener('keydown', function (e) {
 vscode.postMessage('eide.options_view.launched')
 
 // ====== functions ======
+
+function initApp() {
+    if (inited) return
+    inited = true; /* set init flag */
+    console.log('[builder options view] start init and create page ...')
+    new Vue({ render: h => h(App) }).$mount('#app') /* create and init page */
+    appInstance = App.methods.getInstance()
+    appInstance.$on('save-all', () => saveAll())
+    appInstance.$on('open-config', () => vscode.postMessage('open-config'))
+    console.log('[builder options view] app inited done !')
+}
 
 function showToast(data) {
 
@@ -80,6 +85,11 @@ function showToast(data) {
 
 function saveAll() {
 
+    if (!appInstance) {
+        showToast({ success: false, msg: 'App have not inited !' })
+        return
+    }
+
     console.log('[builder options view] start post data ...')
 
     // update tasks
@@ -88,7 +98,7 @@ function saveAll() {
         'after': 'afterBuildTasks'
     }
     for (const gName in task_name_map) {
-        const vueData = vueInstance.task[gName]
+        const vueData = appInstance.task[gName]
         data_obj[task_name_map[gName]] = vueData
     }
 
@@ -101,7 +111,7 @@ function saveAll() {
     }
     for (const gName in opt_name_map) {
 
-        const vueData = vueInstance[gName]
+        const vueData = appInstance[gName]
         const oldData = data_obj[opt_name_map[gName]]
 
         // get value from form items
@@ -269,7 +279,7 @@ let lang = undefined; /* language */
 
 function initAll(model, data, info) {
 
-    console.log('[builder options view] start init page ...')
+    console.log('[builder options view] start init data ...')
 
     const props = model.properties;
 
@@ -284,15 +294,15 @@ function initAll(model, data, info) {
     // init info
     if (info) {
         lang = info.lang;
-        vueInstance.lang = lang;
-        vueInstance.prjEnvList = info.envList;
+        appData.lang = lang;
+        appData.prjEnvList = info.envList;
     }
 
     for (const prop_name in props_map) {
 
         const props_group = props[props_map[prop_name]].properties
         const data_group = data[props_map[prop_name]]
-        const vueObj = vueInstance[prop_name]
+        const vueObj = appData[prop_name]
 
         for (const name in props_group) {
             const field_info = getFieldInfo(model, props_group[name])
@@ -311,7 +321,7 @@ function initAll(model, data, info) {
 
     for (const prop_name in task_name_map) {
 
-        const vueObjList = vueInstance.task[prop_name]
+        const vueObjList = appData.task[prop_name]
         const taskDatas = data[task_name_map[prop_name]]
 
         if (taskDatas && Array.isArray(taskDatas)) {
