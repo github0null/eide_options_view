@@ -1000,7 +1000,7 @@ export default {
                 disable: false,
                 abortAfterFailed: false,
                 stopBuildAfterFailed: true,
-                command: 'echo "projet name: ${TargetName}"',
+                command: 'echo "project name: ${TargetName}"',
             });
         },
 
