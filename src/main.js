@@ -285,6 +285,7 @@ function initAll(model, data, info) {
     if (info) {
         lang = info.lang;
         vueInstance.lang = lang;
+        vueInstance.prjEnvList = info.envList;
     }
 
     for (const prop_name in props_map) {

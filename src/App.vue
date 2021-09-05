@@ -44,7 +44,7 @@
                                                     <label class="col-2 col-form-label"
                                                         data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                         :title="get_str('prompt.task.command')">{{ get_str('title.task.command') }}</label>
-                                                    <div class="col-10">
+                                                    <div class="col-9">
                                                         <!--textarea class="form-control form-control-alternative mt-2" 
                                                             :style="style.textarea"
                                                             :rows="get_rows_by_value(item.command)" 
@@ -58,6 +58,25 @@
                                                             :placeholder="get_str('placeholder.task.command')"
                                                             v-model="item.command">
                                                         </el-input>
+                                                    </div>
+                                                    <div class="col-1" style="padding: 0px">
+                                                        <el-popover
+                                                            placement="left"
+                                                            width="600"
+                                                            trigger="click">
+                                                            <el-table :data="prjEnvList">
+                                                                <el-table-column property="name" :label="get_str('title.task.env.name')"></el-table-column>
+                                                                <el-table-column property="desc" :label="get_str('title.task.env.desc')"></el-table-column>
+                                                            </el-table>
+                                                            <base-button 
+                                                                class="mt-2"
+                                                                type="primary"
+                                                                size="sm"
+                                                                slot="reference"
+                                                                outline>
+                                                                {{ get_str('title.btn.variables') }}
+                                                            </base-button>
+                                                        </el-popover>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -111,7 +130,7 @@
                                                             <label class="col-2 col-form-label"
                                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                                 :title="get_str('prompt.task.command')">{{ get_str('title.task.command') }}</label>
-                                                            <div class="col-10">
+                                                            <div class="col-9">
                                                                 <el-input
                                                                     class="mt-2"
                                                                     type="textarea"
@@ -120,6 +139,25 @@
                                                                     v-model="item.command">
                                                                 </el-input>
                                                             </div>
+                                                            <div class="col-1" style="padding: 0px">
+                                                            <el-popover
+                                                                placement="left"
+                                                                width="600"
+                                                                trigger="click">
+                                                                <el-table :data="prjEnvList">
+                                                                    <el-table-column property="name" :label="get_str('title.task.env.name')"></el-table-column>
+                                                                    <el-table-column property="desc" :label="get_str('title.task.env.desc')"></el-table-column>
+                                                                </el-table>
+                                                                <base-button 
+                                                                    class="mt-2"
+                                                                    type="primary"
+                                                                    size="sm"
+                                                                    slot="reference"
+                                                                    outline>
+                                                                    {{ get_str('title.btn.variables') }}
+                                                                </base-button>
+                                                            </el-popover>
+                                                        </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <legend class="col-form-label col-2 float-left pt-0">{{ get_str('title.task.options') }}</legend>
@@ -618,6 +656,29 @@ el-select,
     border: 1px solid var(--vscode-button-background) !important;
 }
 
+/* set style for table */
+.el-popover {
+    color: var(--vscode-input-foreground) !important;
+    background-color: var(--vscode-editor-background) !important;
+    font-family: Consolas !important;
+    border: 1px solid var(--vscode-input-placeholderForeground) !important;
+    border-radius: .25rem !important;
+    box-shadow: 0 1px 3px var(--vscode-focusBorder) !important;
+}
+
+.el-table,
+.el-table__cell, 
+th.el-table__cell
+tr.el-table__cell {
+    color: var(--vscode-input-foreground) !important;
+    background-color: var(--vscode-editor-background) !important;
+    font-family: Consolas !important;
+    border-color: var(--vscode-input-placeholderForeground) !important;
+}
+
+.el-table:before {
+    height: 0px;
+}
 
 /* set common style for input */
 input,
@@ -672,19 +733,26 @@ el-input {
     box-shadow: 0 1px 3px var(--vscode-focusBorder) !important;
 }
 
-.el-popper[x-placement^=top],
-.popper__arrow,
-.popper__arrow:after {
-    border-top-color: var(--vscode-input-placeholderForeground) !important;
-}
-.el-popper[x-placement^=bottom],
-.popper__arrow,
-.popper__arrow:after {
-    border-bottom-color: var(--vscode-input-placeholderForeground) !important;
-}
-
 .el-select-dropdown__item:hover {
     background-color: var(--vscode-inputOption-activeBackground) !important;
+}
+
+/* proper arrow */
+.el-popper[x-placement^=top] .popper__arrow:after {
+    border-top-color: var(--vscode-input-placeholderForeground) !important;
+    bottom: 0px !important;
+}
+.el-popper[x-placement^=bottom] .popper__arrow:after {
+    border-bottom-color: var(--vscode-input-placeholderForeground) !important;
+    top: 0px !important;
+}
+.el-popper[x-placement^=right] .popper__arrow:after {
+    border-right-color: var(--vscode-input-placeholderForeground) !important;
+    left: 0px !important;
+}
+.el-popper[x-placement^=left] .popper__arrow:after {
+    border-left-color: var(--vscode-input-placeholderForeground) !important;
+    right: 0px !important;
 }
 
 /* set foreground color for input placaholder */
@@ -795,6 +863,8 @@ export default {
                     'title.task.name': 'Task Name',
                     'title.task.command': 'Command',
                     'title.task.options': 'Options',
+                    'title.task.env.name': 'Variable Name',
+                    'title.task.env.desc': 'Description',
 
                     'prompt.task.prebuild': 'Run some shell task before build',
                     'prompt.task.posbuild': 'Run some shell task after build done',
@@ -806,18 +876,11 @@ export default {
 
                     'placeholder.task.command': 'Input shell commands',
 
-                    "desc.task.cmd.env.target_name": "Project name",
-                    "desc.task.cmd.env.project_root": "Project root folder",
-                    "desc.task.cmd.env.output_dir": "Build output folder",
-                    "desc.task.cmd.env.builer_folder": "Builder executable file's folder",
-                    "desc.task.cmd.env.toolchain_root": "Toolchain root folder",
-                    "desc.task.cmd.env.compiler_prefix": "Compiler prefix, like: arm-none-eabi-",
-                    "desc.task.cmd.env.compiler_folder": "Compiler executable file's folder",
-
                     'title.btn.add': 'Add',
                     'title.btn.del': 'Delete',
                     'title.btn.save': 'Save All',
                     'title.btn.open.config': 'Open Config',
+                    'title.btn.variables': 'Variables'
                 },
                 'zh-cn': {
                     'title': '构建器选项',
@@ -833,6 +896,8 @@ export default {
                     'title.task.name': '任务名称',
                     'title.task.command': '命令',
                     'title.task.options': '选项',
+                    'title.task.env.name': '变量名',
+                    'title.task.env.desc': '描述',
 
                     'prompt.task.prebuild': '指定一些任务，将在构建开始前运行',
                     'prompt.task.posbuild': '指定一些任务，将在构建完成后运行',
@@ -843,18 +908,11 @@ export default {
                     'prompt.task.sbif': '如果失败，则停止构建',
                     'placeholder.task.command': '输入 Shell 命令行',
 
-                    "desc.task.cmd.env.target_name": "项目名称",
-                    "desc.task.cmd.env.project_root": "项目根目录",
-                    "desc.task.cmd.env.output_dir": "编译输出目录",
-                    "desc.task.cmd.env.builer_folder": "构建器可执行文件目录",
-                    "desc.task.cmd.env.toolchain_root": "工具链根目录",
-                    "desc.task.cmd.env.compiler_prefix": "编译器前缀，例如：arm-none-eabi-",
-                    "desc.task.cmd.env.compiler_folder": "编译器可执行文件目录",
-
                     'title.btn.add': '添加',
                     'title.btn.del': '删除',
                     'title.btn.save': '全部保存',
                     'title.btn.open.config': '打开配置',
+                    'title.btn.variables': '变量'
                 }
             },
             style: {
@@ -872,6 +930,7 @@ export default {
                     options: 'right'
                 }
             },
+            prjEnvList: [],
             task: {
                 before: [],
                 after: [],
@@ -940,7 +999,7 @@ export default {
         // operations
         add_prebuild_task: function () {
             this.task.before.push({
-                name: "new_prebuild_task",
+                name: "new prebuild task",
                 disable: false,
                 abortAfterFailed: false,
                 stopBuildAfterFailed: true,
@@ -961,10 +1020,10 @@ export default {
 
         add_postbuild_task: function () {
             this.task.after.push({
-                name: "new_postbuild_task",
+                name: "copy executable files",
                 disable: false,
                 abortAfterFailed: false,
-                command: 'echo "test"',
+                command: 'mkdir .\\dist & copy /B "${OutDir}\\${targetName}.hex" .\\dist\\ & copy /B "${OutDir}\\${targetName}.bin" .\\dist\\',
             });
         },
 
