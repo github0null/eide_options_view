@@ -11,7 +11,7 @@
                         <base-button outline type="primary" class="float-right mr-4" @click="onOpenConfig">{{ get_str('title.btn.open.config') }}</base-button>
                     </div>
                     <tabs fill class="flex-column flex-md-row">
-                        <card shadow>
+                        <card>
                             <tab-pane key="tab1">
                                 <span slot="title">
                                     <i class="ni ni-user-run mr-2"></i>{{ get_str('title.task') }}
@@ -646,7 +646,7 @@ section {
 
 .card-body {
     border-radius: 4px;
-    box-shadow: 0 5px 20px var(--vscode-widget-shadow);
+    box-shadow: 0 5px 20px var(--vscode-widget-shadow) !important;
 }
 
 .nav-pills.show>.nav-link {
