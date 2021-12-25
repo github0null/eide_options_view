@@ -624,6 +624,10 @@ section {
     background-color: var(--vscode-editor-background) !important;
 }
 
+.row {
+    align-items: center;
+}
+
 .nav-link {
     color: var(--vscode-editor-foreground) !important;
     background-color: var(--vscode-editor-background) !important;
