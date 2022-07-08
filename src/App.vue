@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <section class="section">
-        <div class="container col-10">
+        <div class="container col-11">
             <div class="row justify-content-center">
                 <div class="col-12">
                     <!-- Tabs with icons -->
@@ -1024,7 +1024,7 @@ export default {
                 name: "copy executable files",
                 disable: false,
                 abortAfterFailed: false,
-                command: 'mkdir .\\dist & copy /B "${OutDir}\\${targetName}.hex" .\\dist\\ & copy /B "${OutDir}\\${targetName}.bin" .\\dist\\',
+                command: 'echo "firmware: ${OutDir}/${targetName}.hex"',
             });
         },
 
