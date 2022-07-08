@@ -189,7 +189,7 @@
                                     <i class="ni ni-world mr-2"></i>{{ get_str('title.global') }}
                                 </span>
 
-                                <div class="container">
+                                <div class="container col-12">
                                     <div class="col">
                                         <!--dynamic element-->
                                         <div v-for="(item, index) in global" :key="index">
@@ -288,7 +288,7 @@
                                     <i class="ni ni-settings mr-2"></i>{{ get_str('title.c/c++') }}
                                 </span>
 
-                                <div class="container">
+                                <div class="container col-12">
                                     <div class="col">
                                         <!--dynamic element-->
                                         <div v-for="(item, index) in cpp" :key="index">
@@ -381,7 +381,7 @@
                                     <i class="ni ni-settings mr-2"></i>{{ get_str('title.asmber') }}
                                 </span>
 
-                                <div class="container">
+                                <div class="container col-12">
                                     <div class="col">
                                         <!--dynamic element-->
                                         <div v-for="(item, index) in asm" :key="index">
@@ -474,7 +474,7 @@
                                     <i class="ni ni-settings mr-2"></i>{{ get_str('title.linker') }}
                                 </span>
 
-                                <div class="container">
+                                <div class="container col-12">
                                     <div class="col">
                                         <!--dynamic element-->
                                         <div v-for="(item, index) in linker" :key="index">
