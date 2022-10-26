@@ -64,7 +64,7 @@
                                                             placement="left"
                                                             width="600"
                                                             trigger="click">
-                                                            <el-table :data="prjEnvList">
+                                                            <el-table :data="prjEnvList" max-height="500px">
                                                                 <el-table-column property="name" :label="get_str('title.task.env.name')"></el-table-column>
                                                                 <el-table-column property="desc" :label="get_str('title.task.env.desc')"></el-table-column>
                                                             </el-table>
@@ -144,7 +144,7 @@
                                                                 placement="left"
                                                                 width="600"
                                                                 trigger="click">
-                                                                <el-table :data="prjEnvList">
+                                                                <el-table :data="prjEnvList" max-height="500px">
                                                                     <el-table-column property="name" :label="get_str('title.task.env.name')"></el-table-column>
                                                                     <el-table-column property="desc" :label="get_str('title.task.env.desc')"></el-table-column>
                                                                 </el-table>
