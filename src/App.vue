@@ -224,11 +224,19 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</label>
-                                                <div class="col-5">
+                                                <div class="col-5" v-if="item.auto_complete_ctx == undefined">
                                                     <el-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
                                                     </el-input>
+                                                </div>
+                                                <div class="col-5" v-else>
+                                                    <el-autocomplete 
+                                                        class="el-input"
+                                                        :placeholder="item.placeHolder || ''" 
+                                                        v-model="item.value"
+                                                        :fetch-suggestions="(qStr, cb) => query_input_auto_complete_list(qStr, cb, item.auto_complete_ctx)">
+                                                    </el-autocomplete>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
@@ -323,11 +331,19 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</label>
-                                                <div class="col-5">
+                                                <div class="col-5" v-if="item.auto_complete_ctx == undefined">
                                                     <el-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
                                                     </el-input>
+                                                </div>
+                                                <div class="col-5" v-else>
+                                                    <el-autocomplete 
+                                                        class="el-input"
+                                                        :placeholder="item.placeHolder || ''" 
+                                                        v-model="item.value"
+                                                        :fetch-suggestions="(qStr, cb) => query_input_auto_complete_list(qStr, cb, item.auto_complete_ctx)">
+                                                    </el-autocomplete>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
@@ -416,11 +432,19 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</label>
-                                                <div class="col-5">
+                                                <div class="col-5" v-if="item.auto_complete_ctx == undefined">
                                                     <el-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
                                                     </el-input>
+                                                </div>
+                                                <div class="col-5" v-else>
+                                                    <el-autocomplete 
+                                                        class="el-input"
+                                                        :placeholder="item.placeHolder || ''" 
+                                                        v-model="item.value"
+                                                        :fetch-suggestions="(qStr, cb) => query_input_auto_complete_list(qStr, cb, item.auto_complete_ctx)">
+                                                    </el-autocomplete>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
@@ -509,11 +533,19 @@
                                                     data-toggle="tooltip" :data-placement="location.tooltip.title"
                                                     :title="item.description||''"
                                                 >{{ get_readable_name(item) }}</label>
-                                                <div class="col-5">
+                                                <div class="col-5" v-if="item.auto_complete_ctx == undefined">
                                                     <el-input 
                                                         :placeholder="item.placeHolder || ''" 
                                                         v-model="item.value">
                                                     </el-input>
+                                                </div>
+                                                <div class="col-5" v-else>
+                                                    <el-autocomplete 
+                                                        class="el-input"
+                                                        :placeholder="item.placeHolder || ''" 
+                                                        v-model="item.value"
+                                                        :fetch-suggestions="(qStr, cb) => query_input_auto_complete_list(qStr, cb, item.auto_complete_ctx)">
+                                                    </el-autocomplete>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-2 form-group" v-else-if="item.type == 'input'">
@@ -660,6 +692,7 @@ section {
 }
 
 /* set style for table */
+.el-autocomplete-suggestion,
 .el-popover {
     color: var(--vscode-input-foreground) !important;
     background-color: var(--vscode-editor-background) !important;
@@ -731,6 +764,11 @@ textarea {
     box-shadow: 0 1px 3px var(--vscode-focusBorder) !important;
 }
 
+.el-autocomplete-suggestion li {
+    color: var(--vscode-dropdown-foreground) !important;
+}
+
+.el-autocomplete-suggestion li:hover,
 .el-select-dropdown__item:hover {
     background-color: var(--vscode-inputOption-activeBackground) !important;
 }
@@ -916,6 +954,7 @@ let appData = {
         }
     },
     prjEnvList: [],
+    contextData: {},
     task: {
         before: [],
         after: [],
@@ -997,6 +1036,17 @@ export default {
             return this.strs['default'][label] || label;
         },
 
+        // context data
+        query_input_auto_complete_list: function(qStr, cb, ctx_str) {
+
+            if (this.contextData[ctx_str]) {
+                let values = this.contextData[ctx_str]
+                    .filter(v => v.includes(qStr))
+                    .map(v => { return { value: v } });
+                cb(values);
+            }
+        },
+
         // operations
         add_prebuild_task: function () {
             this.task.before.push({
@@ -1004,7 +1054,7 @@ export default {
                 disable: false,
                 abortAfterFailed: false,
                 stopBuildAfterFailed: true,
-                command: 'echo "project name: ${TargetName}"',
+                command: 'echo "project name: ${ProjectName}"',
             });
         },
 
@@ -1021,10 +1071,10 @@ export default {
 
         add_postbuild_task: function () {
             this.task.after.push({
-                name: "copy executable files",
+                name: "new postbuild task",
                 disable: false,
                 abortAfterFailed: false,
-                command: 'echo "firmware: ${OutDir}/${targetName}.hex"',
+                command: 'echo "firmware: ${OutDir}/${ProjectName}.hex"',
             });
         },
 

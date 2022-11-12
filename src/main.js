@@ -215,6 +215,8 @@ function setFieldValue(field_info, field, data) {
         field.readable_name = field_info[`readable_name.${lang}`];
     }
 
+    field.auto_complete_ctx = field_info['auto_complete_ctx'];
+
     // set type
     switch (type) {
         case 'array':
@@ -296,6 +298,7 @@ function initAll(model, data, info) {
         lang = info.lang;
         appData.lang = lang;
         appData.prjEnvList = info.envList;
+        appData.contextData = info.contextData || {};
     }
 
     for (const prop_name in props_map) {
