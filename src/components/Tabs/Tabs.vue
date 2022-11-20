@@ -21,7 +21,7 @@
             <a data-toggle="tab"
                role="tab"
                class="nav-link"
-               :href="`#${tab.id || tab.title}`"
+               :href="`#${undefined}`"
                @click.prevent="activateTab(tab)"
                :aria-selected="tab.active"
                :class="{active: tab.active}">
@@ -145,8 +145,8 @@ export default {
     }
   },
   methods: {
-    findAndActivateTab(title) {
-      let tabToActivate = this.tabs.find(t => t.title === title);
+    findAndActivateTab(id) {
+      let tabToActivate = this.tabs.find(t => t.id === id);
       if (tabToActivate) {
         this.activateTab(tabToActivate);
       }
