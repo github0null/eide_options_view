@@ -10,9 +10,9 @@
                         <base-button type="success" class="float-right" @click="onSave">{{ get_str('title.btn.save') }}</base-button>
                         <base-button outline type="primary" class="float-right mr-4" @click="onOpenConfig">{{ get_str('title.btn.open.config') }}</base-button>
                     </div>
-                    <tabs fill class="flex-column flex-md-row">
+                    <tabs fill class="flex-column flex-md-row" value="tab2">
                         <card>
-                            <tab-pane key="tab1">
+                            <tab-pane id="tab1" ref="tab.user-tasks">
                                 <span slot="title">
                                     <i class="ni ni-user-run mr-2"></i>{{ get_str('title.task') }}
                                 </span>
@@ -54,6 +54,7 @@
                                                         <el-input
                                                             class="mt-2"
                                                             type="textarea"
+                                                            :ref="'textarea.user-tasks.prebuild.' + index"
                                                             :autosize="textarea.autosize"
                                                             :placeholder="get_str('placeholder.task.command')"
                                                             v-model="item.command">
@@ -134,6 +135,7 @@
                                                                 <el-input
                                                                     class="mt-2"
                                                                     type="textarea"
+                                                                    :ref="'textarea.user-tasks.postbuild.' + index"
                                                                     :autosize="textarea.autosize"
                                                                     :placeholder="get_str('placeholder.task.command')"
                                                                     v-model="item.command">
@@ -184,7 +186,7 @@
 
                             </tab-pane>
 
-                            <tab-pane key="tab2">
+                            <tab-pane id="tab2" ref="tab.global">
                                 <span slot="title">
                                     <i class="ni ni-world mr-2"></i>{{ get_str('title.global') }}
                                 </span>
@@ -260,6 +262,7 @@
                                                 <el-input
                                                     class="mt-2"
                                                     type="textarea"
+                                                    :ref="'textarea.global.' + index"
                                                     :autosize="textarea.autosize"
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
@@ -291,7 +294,7 @@
                                 </div>
                             </tab-pane>
 
-                            <tab-pane key="tab3">
+                            <tab-pane id="tab3" ref="tab.c_cpp">
                                 <span slot="title">
                                     <i class="ni ni-settings mr-2"></i>{{ get_str('title.c/c++') }}
                                 </span>
@@ -361,6 +364,7 @@
                                                 <el-input
                                                     class="mt-2"
                                                     type="textarea"
+                                                    :ref="'textarea.c_cpp.' + index"
                                                     :autosize="textarea.autosize"
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
@@ -392,7 +396,7 @@
                                 </div>
                             </tab-pane>
 
-                            <tab-pane key="tab4">
+                            <tab-pane id="tab4" ref="tab.asm">
                                 <span slot="title">
                                     <i class="ni ni-settings mr-2"></i>{{ get_str('title.asmber') }}
                                 </span>
@@ -462,6 +466,7 @@
                                                 <el-input
                                                     class="mt-2"
                                                     type="textarea"
+                                                    :ref="'textarea.asm.' + index"
                                                     :autosize="textarea.autosize"
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
@@ -493,7 +498,7 @@
                                 </div>
                             </tab-pane>
 
-                            <tab-pane key="tab5">
+                            <tab-pane id="tab5" ref="tab.linker">
                                 <span slot="title">
                                     <i class="ni ni-settings mr-2"></i>{{ get_str('title.linker') }}
                                 </span>
@@ -563,6 +568,7 @@
                                                 <el-input
                                                     class="mt-2"
                                                     type="textarea"
+                                                    :ref="'textarea.linker.' + index"
                                                     :autosize="textarea.autosize"
                                                     :placeholder="item.placeHolder || ''"
                                                     v-model="item.value">
@@ -878,7 +884,7 @@ let appData = {
             'title.linker': 'Linker',
 
             'title.task.prebuild': 'Prebuild Task',
-            'title.task.posbuild': 'Post Build Task',
+            'title.task.posbuild': 'PostBuild Task',
             'title.task.name': 'Task Name',
             'title.task.command': 'Command',
             'title.task.options': 'Options',
@@ -995,6 +1001,37 @@ export default {
             this.dialog.theme = status.success ? 'success' : 'danger'
             this.dialog.visible = true
         })
+
+        // const tryResizeTextarea = function (obj) {
+        //     if (obj.type == 'textarea') {
+        //         obj.resizeTextarea();
+        //     }
+        // };
+
+        // // watch tabs
+        // // auto size all textarea
+        // for (const key in this.$refs) {
+        //     if (key.startsWith('tab.')) {
+        //         // watch this.$refs[key].active
+        //         console.log(this.$refs[key]);
+        //         this.$refs[key].onDidStateChanged((state) => {
+        //             if (!state) return;
+        //             console.log(`resize textarea for '${key}' ...`);
+        //             let suffix = key.split('.')[1];
+        //             for (const n in this.$refs) {
+        //                 let t = this.$refs[key];
+        //                 if (n.startsWith(`textarea.${suffix}.`)) {
+        //                     console.log(`\tresizing '${n}' ...`);
+        //                     if (Array.isArray(t)) {
+        //                         t.forEach(v => tryResizeTextarea(v));
+        //                     } else {
+        //                         tryResizeTextarea(t);
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //     }
+        // }
     },
 
     // global methods
