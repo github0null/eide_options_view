@@ -245,12 +245,23 @@ function setFieldValue(field_info, field, data) {
             return false; // not support this type
     }
 
+    if (type == 'array' && field_info.properties != undefined) {
+
+        field.child_type     = 'object'
+        field.child_def_val  = {}
+        field.child_key_meta = {}
+
+        for (let key in field_info.properties) {
+            field.child_def_val[key]  = field_info.properties[key].default
+            field.child_key_meta[key] = field_info.properties[key]
+        }
+    }
+
     // data is valid, set value
     if (data) {
         switch (type) {
             case 'array':
-                field.value = (Array.isArray(data) ? data : [data])
-                    .map((val) => { return { value: val } })
+                field.value = (Array.isArray(data) ? data : [data]).map((val) => { return { value: val } })
                 break;
             case 'boolean':
                 field.value = data

@@ -574,7 +574,7 @@
                                                     v-model="item.value">
                                                 </el-input>
                                             </div>
-                                            <div class="mb-2" v-else-if="item.type == 'array'">
+                                            <div class="mt-4 mb-2" v-else-if="item.type == 'array' && item.child_type == undefined">
                                                 <div class="form-inline mb-2 mt-2">
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
@@ -587,6 +587,46 @@
                                                         <div class="form-inline">
                                                             <div class="input-group input-group-sm w-50">
                                                                 <input type="text" class="form-control" v-model="ele.value">
+                                                            </div>
+                                                            <base-button class="ml-4" size="sm" type="danger" 
+                                                                @click="delete_from_list(item.value, ele.value)"
+                                                            >{{ get_str('title.btn.del') }}</base-button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="mt-4 mb-2" v-else-if="item.type == 'array' && item.child_type == 'object'">
+                                                <div class="form-inline mb-2 mt-2">
+                                                    <a class="mr-4" data-toggle="tooltip" 
+                                                        :data-placement="location.tooltip.options" 
+                                                        :title="item.description||''"
+                                                    >{{ get_readable_name(item) }}</a>
+                                                    <base-button class="float-right" size="sm" type="success" @click="add_to_list(item.value, item.child_def_val)">{{ get_str('title.btn.add') }}</base-button>
+                                                </div>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
+                                                        <div class="form-inline">
+                                                            <div class="col-10">
+                                                                <div v-for="(i_val, i_key) in ele.value" :key="i_key" class="pt-2 pb-2">
+                                                                    <div v-if="item.child_key_meta[i_key].type == 'number'" class="input-group input-group-sm w-50">
+                                                                        <div class="pr-2" style="display: flex;min-width: 100px;">
+                                                                            <label data-toggle="tooltip" 
+                                                                                :data-placement="location.tooltip.title"
+                                                                                :title="item.child_key_meta[i_key].description"
+                                                                            >{{item.child_key_meta[i_key].readable_name || i_key}}</label>
+                                                                        </div>
+                                                                        <input type="number" class="form-control" v-model.number="ele.value[i_key]">
+                                                                    </div>
+                                                                    <div v-else class="input-group input-group-sm">
+                                                                        <div class="pr-2" style="display: flex;min-width: 100px;">
+                                                                            <label data-toggle="tooltip" 
+                                                                                :data-placement="location.tooltip.title"
+                                                                                :title="item.child_key_meta[i_key].description"
+                                                                            >{{item.child_key_meta[i_key].readable_name || i_key}}</label>
+                                                                        </div>
+                                                                        <input type="text" class="form-control" v-model.trim="ele.value[i_key]">
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <base-button class="ml-4" size="sm" type="danger" 
                                                                 @click="delete_from_list(item.value, ele.value)"
@@ -1127,7 +1167,15 @@ export default {
         },
 
         add_to_list: function (list, value) {
-            list.push({ value: value })
+
+            if (value == undefined || value == null)
+                return;
+
+            if (typeof value == 'object') {
+                list.push({ value: JSON.parse(JSON.stringify(value)) })
+            } else {
+                list.push({ value: value })
+            }
         },
 
         delete_from_list: function (list, value) {
