@@ -35,7 +35,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-2 col-form-label"
                                                         data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                        :title="get_str('prompt.task.name')">{{ get_str('title.task.name') }}</label>
+                                                        :title="get_str('prompt.task.name')">{{ get_str('title.task.name').replace('{0}', (index + 1).toString()) }}</label>
                                                     <div class="col-5">
                                                     <el-input v-model="item.name"></el-input>
                                                     </div>
@@ -122,7 +122,7 @@
                                                         <div class="form-group row">
                                                             <label class="col-2 col-form-label"
                                                                 data-toggle="tooltip" :data-placement="location.tooltip.title"
-                                                                :title="get_str('prompt.task.name')">{{ get_str('title.task.name') }}</label>
+                                                                :title="get_str('prompt.task.name')">{{ get_str('title.task.name').replace('{0}', (index + 1).toString()) }}</label>
                                                             <div class="col-5">
                                                             <el-input v-model="item.name"></el-input>
                                                             </div>
@@ -925,7 +925,7 @@ let appData = {
 
             'title.task.prebuild': 'Prebuild Task',
             'title.task.posbuild': 'PostBuild Task',
-            'title.task.name': 'Task Name',
+            'title.task.name': 'Task-{0} Name',
             'title.task.command': 'Command',
             'title.task.options': 'Options',
             'title.task.env.name': 'Variable Name',
@@ -958,7 +958,7 @@ let appData = {
 
             'title.task.prebuild': '构建前任务',
             'title.task.posbuild': '构建后任务',
-            'title.task.name': '任务名称',
+            'title.task.name': '任务-{0} 名称',
             'title.task.command': '命令',
             'title.task.options': '选项',
             'title.task.env.name': '变量名',
