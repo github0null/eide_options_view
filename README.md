@@ -1,5 +1,7 @@
 # eide_options_view
 
+> !!! 注意：需要在 node v14 下编译
+
 ## Project setup
 ```
 npm install

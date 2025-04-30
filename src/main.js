@@ -245,15 +245,24 @@ function setFieldValue(field_info, field, data) {
             return false; // not support this type
     }
 
-    if (type == 'array' && field_info.properties != undefined) {
+    if (type == 'array' && field_info.items) {
 
-        field.child_type     = 'object'
-        field.child_def_val  = {}
-        field.child_key_meta = {}
+        field.child_type = field_info.items.type;
 
-        for (let key in field_info.properties) {
-            field.child_def_val[key]  = field_info.properties[key].default
-            field.child_key_meta[key] = field_info.properties[key]
+        if (field.child_type == 'string') {
+            field.child_def_val = field_info.items.default || ''
+            if (field_info.items['enum']) {
+                field.enums    = field_info.items['enum']
+                field.enumDesc = field_info.items['enumDescriptions'] || []
+            }
+        }
+        else if (field.child_type == 'object') {
+            field.child_def_val  = {}
+            field.child_key_meta = {}
+            for (let key in field_info.items.properties) {
+                field.child_def_val[key]  = field_info.items.properties[key].default
+                field.child_key_meta[key] = field_info.items.properties[key]
+            }
         }
     }
 

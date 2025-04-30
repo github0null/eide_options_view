@@ -574,7 +574,7 @@
                                                     v-model="item.value">
                                                 </el-input>
                                             </div>
-                                            <div class="mt-4 mb-2" v-else-if="item.type == 'array' && item.child_type == undefined">
+                                            <div class="mt-4 mb-2" v-else-if="item.type == 'array' && item.child_type == 'string'">
                                                 <div class="form-inline mb-2 mt-2">
                                                     <a class="mr-4" data-toggle="tooltip" 
                                                         :data-placement="location.tooltip.options" 
@@ -585,7 +585,16 @@
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
                                                         <div class="form-inline">
-                                                            <div class="input-group input-group-sm w-50">
+                                                            <div v-if="item.enums != undefined" class="input-group input-group-sm w-75">
+                                                                <select class="form-control" v-model="ele.value">
+                                                                    <option v-for="(enum_item, enum_index) in item.enums" 
+                                                                        :key="enum_index" 
+                                                                        :label="item.enumDesc[enum_index] || enum_item"
+                                                                        :value="enum_item">
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                            <div v-else class="input-group input-group-sm w-50">
                                                                 <input type="text" class="form-control" v-model="ele.value">
                                                             </div>
                                                             <base-button class="ml-4" size="sm" type="danger" 
@@ -862,8 +871,15 @@ textarea::-webkit-input-placeholder,
 }
 
 select {
+    color: var(--vscode-input-foreground) !important;
+    background-color: var(--vscode-editor-background) !important;
     border: 1px solid var(--vscode-input-placeholderForeground) !important;
     border-radius: .25rem !important;
+}
+select option {
+    color: var(--vscode-input-foreground) !important;
+    background-color: var(--vscode-editor-background) !important;
+    border: 1px solid var(--vscode-input-placeholderForeground) !important;
 }
 
 /* actions */
