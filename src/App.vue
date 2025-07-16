@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <section class="section">
-        <div class="container col-11">
+        <div class="container col-12">
             <div class="row justify-content-center">
                 <div class="col-12">
                     <!-- Tabs with icons -->
@@ -206,7 +206,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-2"
+                                                <el-select class="col-3"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -314,7 +314,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-2"
+                                                <el-select class="col-3"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -416,7 +416,7 @@
                                                 </base-checkbox>
                                             </div>
                                             <div class="form-inline mt-1 mb-1" v-else-if="item.type == 'enum'">
-                                                <el-select class="col-2"
+                                                <el-select class="col-3"
                                                     size="small" 
                                                     v-model="item.value">
                                                     <el-option v-for="(enum_item, enum_index) in item.enums" 
@@ -585,7 +585,7 @@
                                                 <ul class="list-group">
                                                     <li class="list-group-item" v-for="(ele, ele_index) in item.value" :key="ele_index">
                                                         <div class="form-inline">
-                                                            <div v-if="item.enums != undefined" class="input-group input-group-sm w-75">
+                                                            <div v-if="item.enums != undefined" class="input-group input-group-sm w-50">
                                                                 <select class="form-control" v-model="ele.value">
                                                                     <option v-for="(enum_item, enum_index) in item.enums" 
                                                                         :key="enum_index" 
