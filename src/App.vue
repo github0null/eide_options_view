@@ -8,7 +8,6 @@
                     <div class="mb-4">
                         <big class="text-uppercase font-weight-bold">{{ get_str('title') }}</big>
                         <base-button type="success" class="float-right" @click="onSave">{{ get_str('title.btn.save') }}</base-button>
-                        <base-button outline type="primary" class="float-right mr-4" @click="onOpenConfig">{{ get_str('title.btn.open.config') }}</base-button>
                     </div>
                     <tabs fill class="flex-column flex-md-row" value="tab2">
                         <card>
